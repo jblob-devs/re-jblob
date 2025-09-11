@@ -1,17 +1,21 @@
 {
   "name": "my-project",
-  "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "dev": "vite --host",
+    "build": "vite build index.html",
+    "preview": "vite preview index.html"
   },
   "devDependencies": {
+    "nodemon": "^3.1.10",
     "tailwindcss": "^4.1.13"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.13",
+    "jquery": "^3.7.1",
+    "node": "^24.8.0",
     "parcel": "^2.15.4",
     "postcss": "^8.5.6",
-    "tailwind": "^4.0.0"
+    "tailwind": "^4.0.0",
+    "vite": "^7.1.5"
   }
 }
