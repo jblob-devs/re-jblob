@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
 .base-button{
-    @apply border-amber-200 border-2 rounded-2xl hover:rounded-3xl hover:bg-amber-100 transition-all duration-300 ease-in-out
+    @apply border-amber-200 py-5 px-4 border-2 rounded-2xl hover:rounded-3xl hover:bg-amber-100 transition-all duration-300 ease-in-out
+}
+
+.base-modal{
+    @apply absolute bg-amber-50 shadow-lg rounded-2xl p-4 hidden
 }

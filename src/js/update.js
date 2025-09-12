@@ -5,6 +5,15 @@ const displayGameTick = function(){
     
 }
 
+function renderBuyableBlobs(){
+const content = game.buyableBlobs.map((blob)=>{
+    return `
+    <div class="">
+        <p>${blob.name}
+    `
+})
+
+}
 setInterval(function(){
     displayGameTick()
 },100)

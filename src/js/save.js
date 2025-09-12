@@ -10,8 +10,11 @@ export let game = {
     },
     blobs:{
         basicBlob:{
+            name: "Basic Blob",
+            cost: 30,
             owned:1,
             level: 1,
         }
-    }
+    },
+    buyableBlobs: ['blobs.basicBlob'],
 }
