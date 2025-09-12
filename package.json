@@ -2,8 +2,8 @@
   "name": "my-project",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build index.html",
-    "preview": "vite preview index.html"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
