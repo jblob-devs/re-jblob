@@ -12,9 +12,23 @@ export let game = {
         basicBlob:{
             name: "Basic Blob",
             cost: 30,
+            costType: "roundCoins",
             owned:1,
             level: 1,
+            generateMaterial: "roundCoins",
+            generateAmount: 1,
+            generateInterval: 1000,
+            maxStorage: 10,
+            curStorage: 0,
         }
     },
     buyableBlobs: ['blobs.basicBlob'],
+    capacity: 3,
+    curCapacity: 0,
+}
+
+export let dictionary = {
+    "roundCoins": "Round Coins",
+    "pointyCoins": "Pointy Coins",
+    "flatCoins": "Flat Coins",
 }
