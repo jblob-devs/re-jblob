@@ -25,6 +25,7 @@ export let game = {
     buyableBlobs: ['blobs.basicBlob'],
     capacity: 3,
     curCapacity: 0,
+    shopRefreshTimer: 5000, //ms
 }
 
 export let dictionary = {

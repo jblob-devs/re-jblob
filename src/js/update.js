@@ -65,12 +65,13 @@ function renderBlobList(){
             <div id="blob-${blobKey}" class="border border-gray-300 rounded-lg p-4 mb-4">
 
 
-            <p class="font-semibold text-lg">${realBlob.name} - Owned: ${realBlob.owned}</p>
+            <p class="font-semibold text-lg">${realBlob.name}</p>
+            <p>( ${realBlob.owned} )</p>
 
 
-            <div data-blob-key="${blobKey}" class="collect-bar w-full relative rounded-full border-1 h-6 hover:h-6.5 transition-all duration-300 border-green-600">
+            <div data-blob-key="${blobKey}" class="collect-bar w-full relative rounded-full border-1 h-6 hover:h-6.5 transition-all duration-300 justify-self-center m-3 border-green-600">
                 <div id="progress-bar-${blobKey}" class=" bg-green-500 h-full rounded-full transition-all duration-500 absolute inset-0 z-0" style="width: 0%"></div>
-                <span id="progress-text-${blobKey}" class="absolute inset-0 z-10 text-black flex items-center justify-center pointer-events-none">Collect</span>
+                <span id="progress-text-${blobKey}" class="absolute inset-0 z-10 text-black flex items-center justify-center h-full pointer-events-none"></span>
                 </div>   
              
              
@@ -96,7 +97,10 @@ Object.keys(game.blobs).forEach((blobKey)=>{
             const totalMax = realBlob.maxStorage * realBlob.owned
             const percentage = (realBlob.curStorage / totalMax) * 100
             const $progressBar = $(`#progress-bar-${blobKey}`)
+            const progressText = $(`#progress-text-${blobKey}`)
             $progressBar.css("width", percentage + "%");
+            console.log(realBlob.curStorage)
+            progressText.text(`collect ${realBlob.curStorage * realBlob.owned} / ${realBlob.maxStorage * realBlob.owned}`)
         }
     })
 }
