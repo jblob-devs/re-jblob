@@ -33,3 +33,16 @@ export let dictionary = {
     "pointyCoins": "Pointy Coins",
     "flatCoins": "Flat Coins",
 }
+
+export function saveGame(){
+    localStorage.setItem("gameData", JSON.stringify(game))
+}
+
+export function loadGame(){
+const savedData = localStorage.getItem("gameData")
+if(savedData){
+    game = JSON.parse(savedData)
+}
+}
+
+loadGame()
