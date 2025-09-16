@@ -1,4 +1,5 @@
 export let game = {
+    level: 1,
     roundCoins: 0,
     pointyCoins: 0,
     flatCoins: 0,
@@ -26,6 +27,15 @@ export let game = {
     capacity: 3,
     curCapacity: 0,
     shopRefreshTimer: 5000, //ms
+    artifacts:{
+        roundStone: {name: 'Round Stone', id: 'ARTIFACTroundStone', level:1}
+    }
+}
+
+export let shopItems = {
+ "1":{
+    'capacity': {name: '+1',cost: 30, costType: 'game.roundCoins', }
+ }
 }
 
 export let dictionary = {
