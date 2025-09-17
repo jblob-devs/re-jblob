@@ -4,7 +4,7 @@ import { dictionary } from './save.js'
 import { saveGame } from './save.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
-
+ $("#blobListHeader").html(renderBlobListHeader())
 
 const displayGameTick = function(){
     saveGame()
@@ -101,8 +101,7 @@ Object.keys(game.blobs).forEach((blobKey)=>{
             const $progressBar = $(`#progress-bar-${blobKey}`)
             const progressText = $(`#progress-text-${blobKey}`)
             $progressBar.css("width", percentage + "%");
-            console.log(realBlob.curStorage)
-            progressText.text(`collect ${realBlob.curStorage * realBlob.owned} / ${realBlob.maxStorage * realBlob.owned}`)
+            progressText.text(`collect ${realBlob.curStorage} / ${realBlob.maxStorage * realBlob.owned}`)
         }
     })
 }

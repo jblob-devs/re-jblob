@@ -28,7 +28,6 @@ export let game = {
     curCapacity: 0,
     shopRefreshTimer: 5000, //ms
     artifacts:{
-        roundStone: {name: 'Round Stone', id: 'ARTIFACTroundStone', level:1}
     }
 }
 

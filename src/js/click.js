@@ -3,9 +3,11 @@ import { game } from './save.js'
 import shopContent from '../html/shop.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
+import {checkArtifacts} from './item.js'
 $("#circleClickButton").on("click", function(){
     game.roundCoins += game.clickStats.roundCoinsPerClick
     game.totalClicks++
+    checkArtifacts('on_click')
 })
 
 $("#blobDivTitle").on("click", function(){
