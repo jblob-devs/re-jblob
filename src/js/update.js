@@ -1,11 +1,13 @@
 import $ from 'jquery'
 import { game } from './save.js'
 import { dictionary } from './save.js'
-
+import { saveGame } from './save.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
 
+
 const displayGameTick = function(){
+    saveGame()
     $("#roundCoinsDisplay").html("Round Coins: " + game.roundCoins)
     const newBuyBlobContent = renderBuyableBlobs()
     const curBuyBlobContent = $("#buyBlobsContainer").html()
