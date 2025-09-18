@@ -20,6 +20,9 @@ export let artifactDictionary = {
                     console.log('round stone triggered')
                 }
             }
+        },
+        give: (startlevel)=>{
+            game.artifacts.push[roundStone = {id: 'roundStone', level: startlevel}]
         }
     },
     'plantableSeedling': {
@@ -44,6 +47,9 @@ export let artifactDictionary = {
                     artifact_data.grown = true;
                 }
             }
+        },
+        give: (startlevel)=>{
+            game.artifacts.push[plantableSeedling = {id: 'plantableSeedling',level: startlevel, grown: false}]
         }
     },
 }

@@ -1,3 +1,6 @@
+import $ from 'jquery'
+
+export let shouldSave = true;
 export let game = {
     level: 1,
     roundCoins: 0,
@@ -53,5 +56,24 @@ if(savedData){
     game = JSON.parse(savedData)
 }
 }
+
+$(`#clearSave`).on("click", function(){
+    if(confirm('are you SURE you want to delete your save')){
+
+    shouldSave = false
+    localStorage.removeItem('gameData')
+    //only clears the values below for now
+    //have to fix at later date possibly by copying the blank save file first
+    game.roundCoins = 0;
+    game.artifacts = []
+    saveGame()
+    //loadGame()
+    shouldSave = true;
+    }else{
+        alert('save NOT deleted')
+    }
+})
+
+
 
 loadGame()
