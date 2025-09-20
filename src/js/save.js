@@ -30,15 +30,13 @@ export let game = {
     capacity: 3,
     curCapacity: 0,
     shopRefreshTimer: 5000, //ms
+    shopSlots: 3,
     artifacts:{
     }
 }
 
-export let shopItems = {
- "1":{
-    'capacity': {name: '+1',cost: 30, costType: 'game.roundCoins', }
- }
-}
+let emptyGameFile = game
+
 
 export let dictionary = {
     "roundCoins": "Round Coins",
@@ -48,6 +46,10 @@ export let dictionary = {
 
 export function saveGame(){
     localStorage.setItem("gameData", JSON.stringify(game))
+}
+
+export function saveLoadedGame(data){
+    localStorage.setItem("gameData", JSON.stringify(data))
 }
 
 export function loadGame(){
@@ -64,9 +66,8 @@ $(`#clearSave`).on("click", function(){
     localStorage.removeItem('gameData')
     //only clears the values below for now
     //have to fix at later date possibly by copying the blank save file first
-    game.roundCoins = 0;
-    game.artifacts = []
-    saveGame()
+    saveLoadedGame(emptyGameFile)
+    game = emptyGameFile
     //loadGame()
     shouldSave = true;
     }else{

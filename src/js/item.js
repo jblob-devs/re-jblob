@@ -1,5 +1,21 @@
 import {game} from './save'
 
+
+function giveItem(item){
+    let exist = false;
+    for(let i =0; i < game.artifacts.length; i++){
+        if(game.artifacts[i].id === item.id){
+            game.artifacts[i].owned += 1
+            exist = true;
+            break;
+        }
+    }
+     if(!exist){
+        game.artifacts.push(item)
+    }
+
+}
+
 export let artifactDictionary = {
     'roundStone': {
         name: 'Round Stone',
@@ -22,7 +38,8 @@ export let artifactDictionary = {
             }
         },
         give: (startlevel)=>{
-            game.artifacts.push[roundStone = {id: 'roundStone', level: startlevel}]
+            console.log('given')
+            giveItem({id: 'roundStone', level: startlevel, owned: 1})
         }
     },
     'plantableSeedling': {
@@ -49,7 +66,7 @@ export let artifactDictionary = {
             }
         },
         give: (startlevel)=>{
-            game.artifacts.push[plantableSeedling = {id: 'plantableSeedling',level: startlevel, grown: false}]
+            giveItem( {id: 'plantableSeedling', level: startlevel, grown: false, owned: 1})
         }
     },
 }

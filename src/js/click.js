@@ -4,8 +4,7 @@ import shopContent from '../html/shop.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
-
-
+import { renderShopInventoryItem } from './shop.js'
 $("#circleClickButton").on("click", function(){
     game.roundCoins += game.clickStats.roundCoinsPerClick
     game.totalClicks++
@@ -16,8 +15,10 @@ $("#blobDivTitle").on("click", function(){
 $("#blobContainer").slideToggle("slow")
 })
 
+
 $("#shopButton").on("click", function(){
 $("#shopContainer").html(shopContent)
+renderShopInventoryItem()
 $("#shopContainer").slideToggle("slow")
 })
 
