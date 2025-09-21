@@ -32,7 +32,7 @@ export let artifactDictionary = {
             execute: (artifact_data) =>{
                 const triggerchance =  artifactDictionary.roundStone.chance(artifact_data) * 100
                 if(Math.floor(Math.random()*100) < triggerchance ){
-                    game.roundCoins += artifact_data.level * 3
+                    game.currencyItems.roundCoins += artifact_data.level * 3
                     console.log('round stone triggered')
                 }
             }

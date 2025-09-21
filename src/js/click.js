@@ -6,7 +6,7 @@ import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
 import { renderShopInventoryItem } from './shop.js'
 $("#circleClickButton").on("click", function(){
-    game.roundCoins += game.clickStats.roundCoinsPerClick
+    game.currencyItems.roundCoins += game.clickStats.roundCoinsPerClick
     game.totalClicks++
     checkArtifacts('on_click')
 })
@@ -24,7 +24,7 @@ $("#shopContainer").slideToggle("slow")
 
 
 //listens for future buy blob buttons to be created and attachs it
-$(document).on("click", ".buyBlobButton", function(){
+$(document).off().on("click", ".buyBlobButton", function(){
     const blobPath = $(this).attr("data")
     let realBlob = game
     let attributes = blobPath.split('.')

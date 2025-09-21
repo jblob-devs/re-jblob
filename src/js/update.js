@@ -12,24 +12,14 @@ const displayGameTick = function(){
     if(shouldSave){
     saveGame()
     }
-    $("#roundCoinsDisplay").html("Round Coins: " + game.roundCoins)
+    $("#roundCoinsDisplay").html("Round Coins: " + game.currencyItems.roundCoins)
     const newBuyBlobContent = renderBuyableBlobs()
     const curBuyBlobContent = $("#buyBlobsContainer").html()
     if (curBuyBlobContent && newBuyBlobContent.trim() !== curBuyBlobContent.trim()) {
         $("#buyBlobsContainer").html(newBuyBlobContent);
     }
     
-
-    let checkcapacity = 0
-    Object.keys(game.blobs).map((blobKey)=>{
-        let realBlob = game.blobs[blobKey]
-        checkcapacity += realBlob.owned
-    })
-
-    if(checkcapacity != game.curCapacity){
-        game.curCapacity = checkcapacity
-        $("#blobListHeader").html(renderBlobListHeader())
-    }
+    $("#blobListHeader").html(renderBlobListHeader())
 
     renderIdleBlobProgressUI()
 }

@@ -3,9 +3,7 @@ import $ from 'jquery'
 export let shouldSave = true;
 export let game = {
     level: 1,
-    roundCoins: 0,
-    pointyCoins: 0,
-    flatCoins: 0,
+    
     clickStats:{
         totalClicks: 0,
         roundCoinsPerClick: 1,
@@ -31,6 +29,12 @@ export let game = {
     curCapacity: 0,
     shopRefreshTimer: 5000, //ms
     shopSlots: 3,
+    currencyItems:{
+        roundCoins: 0,
+        pointyCoins: 0,
+        flatCoins: 0,
+        bronzeKeys: 0
+    },
     artifacts:{
     }
 }
@@ -39,9 +43,10 @@ let emptyGameFile = game
 
 
 export let dictionary = {
-    "roundCoins": "Round Coins",
-    "pointyCoins": "Pointy Coins",
-    "flatCoins": "Flat Coins",
+    "roundCoins": {name: "Round Coins", description: 'smooth and round coins'},
+    "pointyCoins":{name: "Pointy Coins", description: 'three pointed coins'},
+    "flatCoins": {name: "Flat Coins",description:'boxy coins with dull edges'},
+    'bronzeKeys': {name: "Bronze Keys", description:'a faded key made of bronze'}
 }
 
 export function saveGame(){
