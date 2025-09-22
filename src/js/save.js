@@ -3,7 +3,8 @@ import $ from 'jquery'
 export let shouldSave = true;
 export let game = {
     level: 1,
-    
+    exp:0,
+    expNeededToLevel: 100,
     clickStats:{
         totalClicks: 0,
         roundCoinsPerClick: 1,

@@ -28,8 +28,8 @@ export function renderShopInventoryItem(){
         let randItem = listOfItems[Math.floor(Math.random()*listOfItems.length)]
         let item = shopItemDictionary[randItem]
         let itemHtml = 
-        `<div class="m-2 p-2 rounded border border-black">
-        <h3 class="text-xl font-bold">${item.name}</h3>
+        `<div class="m-1 p-2 rounded shadow-md">
+        <h3 class="p-2 text-xl font-bold">${item.name}</h3>
         <p>${item.description}</p>
         <p>Cost: ${item.costNumber} ${dictionary[item.costType].name}</p>
         <button class="buyShopItemButton base-button bg-green-200 p-2 rounded text-black" data-item="${randItem}">Buy</button>
@@ -69,7 +69,7 @@ class shopItem{
 
 export let shopItemDictionary = {
     'minorCapacityOrb': new shopItem('Minor Capacity Orb', 'Increases your blob capacity by 1.', {costNumber: 100, costType: 'roundCoins'}, function(){game.capacity++} ),
-    'bronzeKey': new shopItem('Bronze Key', `${dictionary['bronzeKey']}. probably opens a corresponding chest.`, {costNumber: 300, costType: 'roundCoins'}, function(){game.currencyItems.bronzeKeys++} ),
+    'bronzeKey': new shopItem('Bronze Key', `${dictionary['bronzeKeys'].description}. probably opens a corresponding chest.`, {costNumber: 300, costType: 'roundCoins'}, function(){game.currencyItems.bronzeKeys++} ),
 }
 
 /*

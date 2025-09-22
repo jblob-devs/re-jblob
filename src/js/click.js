@@ -5,9 +5,12 @@ import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
 import { renderShopInventoryItem } from './shop.js'
+
+
 $("#circleClickButton").on("click", function(){
     game.currencyItems.roundCoins += game.clickStats.roundCoinsPerClick
     game.totalClicks++
+    game.exp++
     checkArtifacts('on_click')
 })
 
@@ -32,7 +35,7 @@ $(document).off().on("click", ".buyBlobButton", function(){
         realBlob = realBlob[part]
     })
     let costCurrencyName = realBlob.costType
-    let costCurrency = game[costCurrencyName]
+    let costCurrency = game.currencyItems[costCurrencyName]
     if(costCurrency >= realBlob.cost){
         if(game.curCapacity+1 > game.capacity){
             Swal.fire({
@@ -42,7 +45,7 @@ $(document).off().on("click", ".buyBlobButton", function(){
                 
             })
         }else{
-        game[costCurrencyName] -= realBlob.cost
+        game.currencyItems[costCurrencyName] -= realBlob.cost
         realBlob.owned++
         Swal.fire({
             text:'succesfully bought ' + realBlob.name + "!",

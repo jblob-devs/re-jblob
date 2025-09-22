@@ -3,7 +3,7 @@ import { game } from './save.js'
 import { dictionary } from './save.js'
 import { saveGame } from './save.js'
 import { shouldSave } from './save.js'
-
+import Swal from 'sweetalert2'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
@@ -22,6 +22,9 @@ const displayGameTick = function(){
     $("#blobListHeader").html(renderBlobListHeader())
 
     renderIdleBlobProgressUI()
+    renderBlobList()
+    renderLevelbar()
+    checkLevel()
 }
 
 const idleRewards = setInterval(function(){
@@ -39,11 +42,10 @@ const content = game.buyableBlobs.map((blob)=>{
     attributes.forEach(part => {
         realBlob = realBlob[part]
     })
-    
     return `
         <div>
         <p>${realBlob.name}</p>
-        <p>Cost: ${realBlob.cost} ${dictionary[realBlob.costType]}</p>
+        <p>Cost: ${realBlob.cost} ${dictionary[realBlob.costType].name}</p>
         <button data="${blob}" class="buyBlobButton base-button">Buy</button>
         </div>
         `;  
@@ -79,6 +81,12 @@ function renderBlobList(){
 }
 
 function renderBlobListHeader(){
+    let curCapacityUpdate = 0;
+    for(let element in game.blobs){
+        curCapacityUpdate += game.blobs[element].owned
+
+    }
+    game.curCapacity = curCapacityUpdate;
     return `
     <div>
     Blob Capacity: ${game.curCapacity} /  ${game.capacity}
@@ -100,6 +108,25 @@ Object.keys(game.blobs).forEach((blobKey)=>{
     })
 }
 
+function renderLevelbar(){
+    const percentage = (game.exp / game.expNeededToLevel) * 100
+    const $progressBar = $(`#levelDivInside`)
+    const progressText = $(`#levelDivSpan`)
+    $progressBar.css("width", percentage + "%");
+    progressText.text(`Lv: ${game.level} (${game.exp} / ${game.expNeededToLevel})`)
+}
+
+function checkLevel(){
+    if(game.exp >= game.expNeededToLevel){
+        game.level ++
+        game.exp = game.exp - game.expNeededToLevel
+        game.expNeededToLevel = Math.round(game.expNeededToLevel * 1.25)
+        Swal.fire({
+            title: `Level up!`,
+            text: `Leveled up to Lv. ${game.level}`
+        })
+    }
+}
 
 function generateIdleRewards(blobKey){
 const blob = game.blobs[blobKey]
