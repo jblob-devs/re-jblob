@@ -123,7 +123,9 @@ function checkLevel(){
         game.expNeededToLevel = Math.round(game.expNeededToLevel * 1.25)
         Swal.fire({
             title: `Level up!`,
-            text: `Leveled up to Lv. ${game.level}`
+            text: `Leveled up to Lv. ${game.level}`,
+            focusConfirm: false,
+            allowEnterKey: false,
         })
     }
 }

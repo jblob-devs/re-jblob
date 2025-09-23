@@ -12,6 +12,7 @@
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.13",
     "jquery": "^3.7.1",
+    "lodash": "^4.17.21",
     "node": "^24.8.0",
     "parcel": "^2.15.4",
     "postcss": "^8.5.6",

@@ -28,6 +28,7 @@ $("#shopContainer").slideToggle("slow")
 
 //listens for future buy blob buttons to be created and attachs it
 $(document).off().on("click", ".buyBlobButton", function(){
+    console.log('buying blob')
     const blobPath = $(this).attr("data")
     let realBlob = game
     let attributes = blobPath.split('.')

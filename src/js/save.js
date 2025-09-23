@@ -1,5 +1,5 @@
 import $ from 'jquery'
-
+import { defaultsDeep } from 'lodash';
 export let shouldSave = true;
 export let game = {
     level: 1,
@@ -37,10 +37,10 @@ export let game = {
         bronzeKeys: 0
     },
     artifacts:{
-    }
+    },
 }
 
-let emptyGameFile = game
+let emptyGameFile = JSON.parse(JSON.stringify(game))
 
 
 export let dictionary = {
@@ -61,7 +61,10 @@ export function saveLoadedGame(data){
 export function loadGame(){
 const savedData = localStorage.getItem("gameData")
 if(savedData){
-    game = JSON.parse(savedData)
+    const parsedData = JSON.parse(savedData)
+    const mergedData = defaultsDeep({}, parsedData, emptyGameFile)
+    game = mergedData
+    saveGame()
 }
 }
 
