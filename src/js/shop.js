@@ -39,7 +39,7 @@ export function renderShopInventoryItem(){
 }
 
 
-$(document).off().on("click", ".buyShopItemButton", function(){
+$('#gameBody').on("click", ".buyShopItemButton", function(){
     let itemName = $(this).data("item")
     let item = shopItemDictionary[itemName]
     item.buy()

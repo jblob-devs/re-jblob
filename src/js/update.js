@@ -31,7 +31,6 @@ const idleRewards = setInterval(function(){
 Object.keys(game.blobs).map((blobKey)=>{
         generateIdleRewards(blobKey)
     })
-
 },1000)
 
 
@@ -153,6 +152,11 @@ $("#blobListContainer").on("click", ".collect-bar", function(){
     collectIdleRewards(blobKey);
     renderIdleBlobProgressUI();
 });
+
+
+function renderInventoryItems(){
+
+}
 
 
 setInterval(function(){

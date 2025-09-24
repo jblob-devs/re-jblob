@@ -1,6 +1,7 @@
 import $ from 'jquery'
 import { game } from './save.js'
 import shopContent from '../html/shop.html?raw'
+import inventoryContent from '../html/inventory.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
@@ -15,19 +16,32 @@ $("#circleClickButton").on("click", function(){
 })
 
 $("#blobDivTitle").on("click", function(){
-$("#blobContainer").slideToggle("slow")
+$("#blobContainer").slideToggle("fast")
 })
 
 
 $("#shopButton").on("click", function(){
 $("#shopContainer").html(shopContent)
 renderShopInventoryItem()
-$("#shopContainer").slideToggle("slow")
+$("#shopContainer").slideToggle("fast")
 })
 
 
+$("#inventoryButton").on("click", function(){
+$("#inventoryContainer").html(inventoryContent)
+//renderInventoryItems()
+$("#inventoryContainer").slideToggle("fast", "linear")
+})
+
+
+
+$('#gameBody').on("click", ".closeModalButton", function(){
+    const closeModal = $(this).attr("data")
+    console.log(closeModal)
+    $(`#${closeModal}`).slideToggle("fast")
+})
 //listens for future buy blob buttons to be created and attachs it
-$(document).off().on("click", ".buyBlobButton", function(){
+$('#gameBody').on("click", ".buyBlobButton", function(){
     console.log('buying blob')
     const blobPath = $(this).attr("data")
     let realBlob = game

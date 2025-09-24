@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-amber-10 via-orange-10 to-amber-50 min-h-screen flex items-center justify-center">
+<body id='gameBody' class="bg-gradient-to-br from-amber-10 via-orange-10 to-amber-50 min-h-screen flex items-center justify-center">
     
     <button id="circleClickButton" class= "font-bold py-4 px-4 rounded-full shadow-lg hover:bg-amber-100 transition duration-300">(OoO)</button>
     
@@ -22,23 +22,31 @@
     <p id="roundCoinsDisplay" class="text-green-500 m-2"></p>
     <div class="grid grid-cols-1 gap-y-4 fixed m-4">
 
-    <div>
+    
     <button id="shopButton" class="ml-0 items-center justify-center base-button">Shop</button>
     <div id="shopContainer" class="base-modal w-[70vw]">
 
     </div>
-    </div>
-    <button id="clearSave">Clear Save</button>
+    <button id="inventoryButton" class="ml-0 items-center base-button">Inventory</button>
+    <div id="inventoryContainer" class="base-modal w-[70vw]"></div>
+    
     <div>
+
         <Button id="blobDivTitle" class="base-button justify-center ">Blobs</Button>
         <br>
+        
         <div id="blobContainer" class="base-modal overflow-y-scroll max-h-[70vh] w-[70vw]">
-        <div id="blobListHeader"></div>
-        <div id="blobListContainer">
+            <div class="flex">
+                <h1 class=" flex-grow flex justify-center text-4xl">Blobs</h1>
+            <button class='closeModalButton base-button' data="blobContainer">X</button>
+            </div>
+            <div id="blobListHeader"></div>
+            <div id="blobListContainer">
 
-        </div>
+            </div>
         </div>
     </div>
+    <button id="clearSave">Clear Save</button>
     </div>
 
     </div>

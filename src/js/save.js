@@ -27,7 +27,7 @@ export let game = {
     },
     buyableBlobs: ['blobs.basicBlob'],
     capacity: 3,
-    curCapacity: 0,
+    curCapacity: 1,
     shopRefreshTimer: 5000, //ms
     shopSlots: 3,
     currencyItems:{
