@@ -36,8 +36,8 @@ $("#inventoryContainer").slideToggle("fast", "linear")
 
 
 $('#gameBody').on("click", ".closeModalButton", function(){
+    console.log('init closing')
     const closeModal = $(this).attr("data")
-    console.log(closeModal)
     $(`#${closeModal}`).slideToggle("fast")
 })
 //listens for future buy blob buttons to be created and attachs it
@@ -70,7 +70,7 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
     }else{
         Swal.fire({
             icon: 'error',
-            text:'Not enough ' + dictionary[costCurrencyName] + "!",
+            text:'Not enough ' + dictionary[costCurrencyName].name + "!",
         })
     }
 })

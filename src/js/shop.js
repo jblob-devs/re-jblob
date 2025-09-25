@@ -1,7 +1,8 @@
-import $ from 'jquery'
+import $, { event } from 'jquery'
 import { game } from './save'
 import { dictionary } from './save';
 import Swal from 'sweetalert2'
+import { artifactDictionary } from './item';
 
 const shopKeeperDialogue = setInterval(function(){
 let randDialogue;
@@ -38,8 +39,27 @@ export function renderShopInventoryItem(){
     }
 }
 
+export function renderOpenableShopItem(){
+$("#openOpenablesContainer").empty()
+$("#openOpenablesContainer").html(
+    `
+    <div>
+    <p>Bronze chest</p>
+    <p>A very typical chest, containing items fit for 3rd place</p>
+    <p>Cost: 1 bronze key</p>
+    <button data-chest-type='bronze' data-currency-type="currencyItems.bronzeKeys" data-currency-needed="1" class="openOpenableButton">Open</button>
+    
+    <p>Blood Chest</p>
+    <p>'Donde esta mi amigo?' - jorge. A sacrifice is needed.</p>
+    <p>Cost: 1 basic blob</p>
+    <button data-chest-type='bronze' data-currency-type="blobs.basicBlob.owned" data-currency-needed="1" class="openOpenableButton">Open</button>
+    </div>
+    `
+)
+}
 
-$('#gameBody').on("click", ".buyShopItemButton", function(){
+
+$('#gameBody').off("click", ".buyShopItemButton").on("click", ".buyShopItemButton", function(){
     let itemName = $(this).data("item")
     let item = shopItemDictionary[itemName]
     item.buy()
@@ -54,15 +74,19 @@ class shopItem{
     }
 
     buy(){
+        console.log('buying ')
         let costPath = (game.currencyItems[this.costType])
-        if(costPath){
+        console.log(costPath)
+    if(costPath){
             if(costPath >= this.costNumber ){
             game.currencyItems[this.costType] -= this.costNumber
             Swal.fire({text:`bought ${this.name}!`, footer: `${this.description}`})
             this.buyFunction()
+        } else{console.log('cantafford')
+        Swal.fire({text:`cannot afford!`})
         }
     }else{
-        Swal.fire({text:`cannot afford!`})
+       console.log('internal error, costType not defined')
     }
     }
 }
@@ -70,6 +94,7 @@ class shopItem{
 export let shopItemDictionary = {
     'minorCapacityOrb': new shopItem('Minor Capacity Orb', 'Increases your blob capacity by 1.', {costNumber: 100, costType: 'roundCoins'}, function(){game.capacity++} ),
     'bronzeKey': new shopItem('Bronze Key', `${dictionary['bronzeKeys'].description}. probably opens a corresponding chest.`, {costNumber: 300, costType: 'roundCoins'}, function(){game.currencyItems.bronzeKeys++} ),
+    'Round Stone': new shopItem('Round Stone [Artifact]', `${artifactDictionary.roundStone.descriptionEffect({id:'roundStone' ,level: 1, owned: 1})}`, {costNumber: 1000 , costType: 'roundCoins'}, function(){artifactDictionary.roundStone.give(1)})
 }
 
 /*

@@ -20,7 +20,7 @@ const displayGameTick = function(){
     }
     
     $("#blobListHeader").html(renderBlobListHeader())
-
+    $('#itemsContainer').html(renderInventoryItems())
     renderIdleBlobProgressUI()
     renderBlobList()
     renderLevelbar()
@@ -155,7 +155,9 @@ $("#blobListContainer").on("click", ".collect-bar", function(){
 
 
 function renderInventoryItems(){
-
+let insertHTML = ``;
+    insertHTML += `<div class="flex m-2 flex-row"><p>Bronze Keys: </p> <p>${game.currencyItems.bronzeKeys}</p></div>`
+return insertHTML
 }
 
 
