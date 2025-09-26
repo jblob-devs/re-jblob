@@ -4,10 +4,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/re-jblob/assets/index-_VXGfDmP.js"></script>
-  <link rel="stylesheet" crossorigin href="/re-jblob/assets/index-BaHm08KR.css">
+  <script type="module" crossorigin src="/re-jblob/assets/index-CbISeowt.js"></script>
+  <link rel="stylesheet" crossorigin href="/re-jblob/assets/index-BiLEoW6X.css">
 </head>
-<body class="bg-gradient-to-br from-amber-10 via-orange-10 to-amber-50 min-h-screen flex items-center justify-center">
+<body id='gameBody' class="bg-gradient-to-br from-amber-10 via-orange-10 to-amber-50 min-h-screen flex items-center justify-center">
     
     <button id="circleClickButton" class= "font-bold py-4 px-4 rounded-full shadow-lg hover:bg-amber-100 transition duration-300">(OoO)</button>
     
@@ -16,26 +16,38 @@
     <h1 class="text-black-500 mt-5 text-3xl font-comfortaa m-8">jblob - re</h1>
     
     <div id="topLeftDisplay" class="ml-3 m-6">
+        <div id= "levelDivOutside" class="collect-bar w-[40vw] relative rounded-full border-1 h-6 hover:h-6.5 transition-all duration-300 justify-self-center m-3 border-blue-500">
+            <div id="levelDivInside" class=" bg-blue-200 h-full rounded-full transition-all duration-500 absolute inset-0 z-0" style="width: 0%"></div>
+            <span id="levelDivSpan" class="absolute inset-0 z-10 text-black flex items-center justify-center h-full pointer-events-none"></span>
+        </div>   
     <p id="roundCoinsDisplay" class="text-green-500 m-2"></p>
     <div class="grid grid-cols-1 gap-y-4 fixed m-4">
 
-    <div>
+    
     <button id="shopButton" class="ml-0 items-center justify-center base-button">Shop</button>
     <div id="shopContainer" class="base-modal w-[70vw]">
 
     </div>
-    </div>
-    <button id="clearSave">Clear Save</button>
+    <button id="inventoryButton" class="ml-0 items-center base-button">Inventory</button>
+    <div id="inventoryContainer" class="base-modal w-[70vw]"></div>
+    
     <div>
+
         <Button id="blobDivTitle" class="base-button justify-center ">Blobs</Button>
         <br>
+        
         <div id="blobContainer" class="base-modal overflow-y-scroll max-h-[70vh] w-[70vw]">
-        <div id="blobListHeader"></div>
-        <div id="blobListContainer">
+            <div class="flex">
+                <h1 class=" flex-grow flex justify-center text-4xl">Blobs</h1>
+            <button class='closeModalButton base-button' data="blobContainer">X</button>
+            </div>
+            <div id="blobListHeader"></div>
+            <div id="blobListContainer">
 
-        </div>
+            </div>
         </div>
     </div>
+    <button id="clearSave">Clear Save</button>
     </div>
 
     </div>
