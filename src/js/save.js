@@ -18,7 +18,7 @@ export let game = {
             costType: "roundCoins",
             owned:1,
             level: 1,
-            generateMaterial: "roundCoins",
+            generateMaterial: "currencyItems.roundCoins",
             generateAmount: 1,
             generateInterval: 1000,
             maxStorage: 10,

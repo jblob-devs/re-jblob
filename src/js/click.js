@@ -36,7 +36,6 @@ $("#inventoryContainer").slideToggle("fast", "linear")
 
 
 $('#gameBody').on("click", ".closeModalButton", function(){
-    console.log('init closing')
     const closeModal = $(this).attr("data")
     $(`#${closeModal}`).slideToggle("fast")
 })

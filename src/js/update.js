@@ -143,7 +143,15 @@ if(blob.curStorage > totalMax) blob.curStorage = totalMax;
 
 function collectIdleRewards(blobKey){
     const blob = game.blobs[blobKey]
-    game[blob.generateMaterial] += blob.curStorage
+    const fullPath = blob.generateMaterial
+    const keys = fullPath.split('.')
+    let curPath = game
+    for(let i = 0; i < keys.length - 1; i++){
+        const key = keys[i]
+        curPath = curPath[key]
+    }
+    let materialKey = keys[keys.length - 1]
+    curPath[materialKey] += Number(blob.curStorage)
     blob.curStorage = 0
 }
 

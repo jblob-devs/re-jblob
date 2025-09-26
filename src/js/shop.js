@@ -24,10 +24,10 @@ $("#shopkeeperTalkingDialogue").html('<i>' + randDialogue + '</i>')
 
 export function renderShopInventoryItem(){
     $("#buyInventoryContainer").empty()
-    let listOfItems = Object.keys(shopItemDictionary)
+    let listOfItems = Object.keys(ItemDictionary)
     for( let i = 0; i < (game.shopSlots); i++){
         let randItem = listOfItems[Math.floor(Math.random()*listOfItems.length)]
-        let item = shopItemDictionary[randItem]
+        let item = ItemDictionary[randItem]
         let itemHtml = 
         `<div class="m-1 p-2 rounded shadow-md">
         <h3 class="p-2 text-xl font-bold">${item.name}</h3>
@@ -61,9 +61,35 @@ $("#openOpenablesContainer").html(
 
 $('#gameBody').off("click", ".buyShopItemButton").on("click", ".buyShopItemButton", function(){
     let itemName = $(this).data("item")
-    let item = shopItemDictionary[itemName]
+    let item = ItemDictionary[itemName]
     item.buy()
 })
+
+$('#gameBody').off("click", ".openOpenableButton").on("click", ".openOpenableButton", function(){
+    let chestType = $(this).data('chest-type')
+    let currencyType = $(this).data('currency-type')
+    let currencyAmount = $(this).data('currency-needed')
+    const fullPath = currencyType
+    const keys = fullPath.split('.')
+    let curPath = game
+    for(let i = 0; i < keys.length - 1; i++){
+        const key = keys[i]
+        curPath = curPath[key]
+    }
+
+    let materialKey = keys[keys.length - 1]
+    if(curPath[materialKey] >= currencyAmount){
+        curPath[materialKey] -= Number(currencyAmount)
+        rollChestLoot(chestType)
+    }else{
+        Swal.fire({
+            text: `You don't have the materials to open this chest `
+        })
+    }
+    
+})
+
+
 class shopItem{
     constructor(name, description, costObject, buyFunction){
         this.name = name;
@@ -91,7 +117,7 @@ class shopItem{
     }
 }
 
-export let shopItemDictionary = {
+export let ItemDictionary = {
     'minorCapacityOrb': new shopItem('Minor Capacity Orb', 'Increases your blob capacity by 1.', {costNumber: 100, costType: 'roundCoins'}, function(){game.capacity++} ),
     'bronzeKey': new shopItem('Bronze Key', `${dictionary['bronzeKeys'].description}. probably opens a corresponding chest.`, {costNumber: 300, costType: 'roundCoins'}, function(){game.currencyItems.bronzeKeys++} ),
     'Round Stone': new shopItem('Round Stone [Artifact]', `${artifactDictionary.roundStone.descriptionEffect({id:'roundStone' ,level: 1, owned: 1})}`, {costNumber: 1000 , costType: 'roundCoins'}, function(){artifactDictionary.roundStone.give(1)})
@@ -103,8 +129,9 @@ $('#buyInventoryContainer').html(
 )
 */
 
-
+renderOpenableShopItem()
 const shopRefresh = setInterval(function(){
 renderShopInventoryItem()
+renderOpenableShopItem()
 },game.shopRefreshTimer)
 
