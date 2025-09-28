@@ -164,7 +164,7 @@ $("#blobListContainer").on("click", ".collect-bar", function(){
 
 function renderInventoryItems(){
 let insertHTML = ``;
-    insertHTML += `<div class="flex m-2 flex-row"><p>Bronze Keys: </p> <p>${game.currencyItems.bronzeKeys}</p></div>`
+    insertHTML += `<div class="flex m-2 flex-col"><div class="flex flex-row"> <p class="mr-2">Bronze Keys: </p> <p>${game.currencyItems.bronzeKeys}</p></div><p class="order-2">${dictionary['bronzeKeys'].description}</p></div>`
 return insertHTML
 }
 

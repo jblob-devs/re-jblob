@@ -14,6 +14,7 @@ export let game = {
     blobs:{
         basicBlob:{
             name: "Basic Blob",
+            image: 'basicBlob',
             cost: 30,
             costType: "roundCoins",
             owned:1,

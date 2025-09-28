@@ -2,11 +2,13 @@ import $ from 'jquery'
 import { game } from './save.js'
 import shopContent from '../html/shop.html?raw'
 import inventoryContent from '../html/inventory.html?raw'
+import blobViewerContent from '../html/blobViewer.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
 import { renderShopInventoryItem } from './shop.js'
 
+$("#blobViewingContainer").html(blobViewerContent)
 
 $("#circleClickButton").on("click", function(){
     game.currencyItems.roundCoins += game.clickStats.roundCoinsPerClick
