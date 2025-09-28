@@ -1,5 +1,9 @@
 import {game} from "./save.js"
+
 import $ from 'jquery'
+import 'jquery-ui/ui/widgets/draggable'
+
+
 
 const container = $("#blobViewerContainer")
 let screenBlobs = []
@@ -9,7 +13,7 @@ const BLOBBY_SCALE_AMPLITUDE = 0.05;
 const BLOBBY_ROTATION_AMPLITUDE = 1.5;
 const blobIMG = (id) =>
     `
-<img src="src/assets/images/blobs/${id}.png" draggable="false" id="blob-${id}" class="transform scale-50"/>
+<img src="src/assets/images/blobs/${id}.png" id="blob-${id}" class="transform scale-50"/>
             
 `
 
@@ -23,6 +27,7 @@ function createNewBlobView(id){
         y: Math.random() * (containterH),
         vx: (Math.random() - 0.5) * 1,
         vyOffset: Math.random() * 1000,
+        isBeingDragged: false,
         element:null,
     }
 }
@@ -33,7 +38,6 @@ function updateBlobViewer(){
     for(let i in game.blobs){
         blobCount += game.blobs[i].owned
     }
-    console.log(blobCount)
     const newCount = blobCount;
     if(newCount > curCount){
 
@@ -43,10 +47,38 @@ function updateBlobViewer(){
             screenBlobs.push(newBlob)
 
             const blobViewerDiv = document.createElement("div")
-            blobViewerDiv.className = 'blobView'
+            blobViewerDiv.className = 'blobView w-fit h-fit'
             blobViewerDiv.innerHTML = blobIMG(game.blobs[blob].image)
+            $(blobViewerDiv).data('blobObject', newBlob)
             newBlob.element = blobViewerDiv
             container.append(blobViewerDiv)
+
+            jQuery(".blobView").draggable({
+                containment: "#blobViewerContainer",
+                start: function (event, ui) {
+                    const draggedBlob = $(this).data('blobObject');
+                    const $element = $(this);
+                    const curPos = $element.position()
+                    draggedBlob.x  = curPos.left;
+                    draggedBlob.y = curPos.top;
+                    console.log(`${draggedBlob.x}, ${draggedBlob.y}`)
+                   if(draggedBlob){ draggedBlob.isBeingDragged = true;}
+                   
+                 
+                },
+                stop: function(event, ui){
+                     const draggedBlob = $(this).data('blobObject');
+                   if(draggedBlob){ 
+                    draggedBlob.x = ui.position.left;
+                    draggedBlob.y = ui.position.top;
+                    draggedBlob.isBeingDragged = false;
+                    console.log(`${draggedBlob.x}, ${draggedBlob.y}`)
+                }
+                    
+                }
+            })
+            
+            
             }
         }
     }else if(newCount < curCount){
@@ -58,18 +90,20 @@ function updateBlobViewer(){
 
 }
 
+
 //have to mess with the animate function
 function animateBlobs(){
     time+=0.1
     const containerWidth = container.width();
     const containerHeight = container.height();
         screenBlobs.forEach(blob => {
-                if (!blob.element) return;
-        blob.x += blob.vx;
-        if (blob.x < 0 || blob.x > containerWidth - 40) {
-            blob.vx *= -1
-            blob.x = Math.max(0, Math.min(blob.x, containerWidth - 40)); 
-        }
+            if (!blob.element) return;
+            if(blob.isBeingDragged) return;
+                blob.x += blob.vx;
+                if (blob.x < 0 || blob.x > containerWidth - 40) {
+                    blob.vx *= -1
+                     blob.x = Math.max(0, Math.min(blob.x, containerWidth - 40)); 
+                }
         const wobbleY = Math.sin(time + blob.vyOffset) * WOBBLE_FACTOR * 50; 
         const pulse = Math.sin(time * 0.5 + blob.vyOffset / 100) * BLOBBY_SCALE_AMPLITUDE; 
         const scaleX = 1 + pulse;

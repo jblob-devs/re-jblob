@@ -1,8 +1,54 @@
-import $, { event } from 'jquery'
+import $, { event, get } from 'jquery'
 import { game } from './save'
 import { dictionary } from './save';
 import Swal from 'sweetalert2'
 import { artifactDictionary } from './item';
+import {getRandomInt} from './click.js'
+
+
+export let openablesList = {
+    'bronzeChest': {
+        name: 'Bronze Chest',
+        description: 'A very typical chest, containing items fit for 3rd place',
+         costNum: 1,
+            costType: 'currencyItems.bronzeKeys',
+            lootTable:[
+                {
+                    item: 'currencyItems.artifactShards',
+                    amount: [1,3],
+                    weight: 30
+                },{
+                    item: 'currencyItems.bloblets',
+                    amount: [4,5],
+                    weight: 20
+                },
+                {
+                    item: 'currencyItems.gearBits',
+                    amount: [5,10],
+                    weight: 50,
+                }
+            ]
+    },
+    'bloodChest': {
+        name: 'Bronze Chest',
+        description: 'the chest wants nothing less than life',
+         costNum: 10,
+            costType: 'currencyItems.bloodStones',
+            lootTable:[
+                {
+                    item: 'currencyItems.artifactShards',
+                    amount: [10,15],
+                    weight: 50
+                },{
+                    item: 'currencyItems.bloblets',
+                    amount: [5,6],
+                    weight: 50
+                }
+            ]
+    }
+
+}
+
 
 const shopKeeperDialogue = setInterval(function(){
 let randDialogue;
@@ -44,15 +90,17 @@ $("#openOpenablesContainer").empty()
 $("#openOpenablesContainer").html(
     `
     <div>
+
     <p>Bronze chest</p>
     <p>A very typical chest, containing items fit for 3rd place</p>
     <p>Cost: 1 bronze key</p>
-    <button data-chest-type='bronze' data-currency-type="currencyItems.bronzeKeys" data-currency-needed="1" class="openOpenableButton">Open</button>
+    <button data-chest-type='bronzeChest' class="openOpenableButton base-button">Open</button>
     
     <p>Blood Chest</p>
     <p>'Donde esta mi amigo?' - jorge. A sacrifice is needed.</p>
     <p>Cost: 1 basic blob</p>
-    <button data-chest-type='bronze' data-currency-type="blobs.basicBlob.owned" data-currency-needed="1" class="openOpenableButton">Open</button>
+    <button data-chest-type='bloodChest' data-currency-type="blobs.basicBlob.owned" data-currency-needed="1" class="openOpenableButton base-button">Open</button>
+    
     </div>
     `
 )
@@ -67,28 +115,58 @@ $('#gameBody').off("click", ".buyShopItemButton").on("click", ".buyShopItemButto
 
 $('#gameBody').off("click", ".openOpenableButton").on("click", ".openOpenableButton", function(){
     let chestType = $(this).data('chest-type')
-    let currencyType = $(this).data('currency-type')
-    let currencyAmount = $(this).data('currency-needed')
+    let currencyAmount = openablesList[chestType].costNum
+    let currencyType = openablesList[chestType].costType
     const fullPath = currencyType
     const keys = fullPath.split('.')
+    console.log(keys)
     let curPath = game
-    for(let i = 0; i < keys.length - 1; i++){
+    let finalKey = keys[keys.length - 1]
+    for(let i = 0; i< keys.length - 1; i++){
         const key = keys[i]
         curPath = curPath[key]
     }
-
-    let materialKey = keys[keys.length - 1]
-    if(curPath[materialKey] >= currencyAmount){
-        curPath[materialKey] -= Number(currencyAmount)
+    console.log(finalKey)
+    if(curPath[finalKey] >= currencyAmount){
+        curPath[finalKey] -= Number(currencyAmount)
         rollChestLoot(chestType)
+        console.log('opened chest')
     }else{
         Swal.fire({
-            text: `You don't have the materials to open this chest `
+            text: `You don't have the materials to open this chest `,
+           
         })
     }
     
 })
 
+function rollChestLoot(chestType){
+     let roll = getRandomInt(1,100)
+    for (const reward of openablesList[chestType].lootTable){
+        roll -= reward.weight
+        if(roll < 0){
+            const [min, max] = reward.amount
+            const rewardAMT = getRandomInt(min, max)
+            const fullPath = reward.item
+            const keys = fullPath.split('.')
+            let curPath = game
+            for(let i = 0; i < keys.length - 1; i++){
+                const key = keys[i]
+                curPath = curPath[key]
+            }
+
+            let materialKey = keys[keys.length - 1]
+
+            curPath[materialKey] += rewardAMT
+            Swal.fire({
+                text: `Got ${rewardAMT} ${dictionary[materialKey].name}!`,
+                footer: `${openablesList[chestType].description}`
+            })
+            break;
+        }
+    }
+
+}
 
 class shopItem{
     constructor(name, description, costObject, buyFunction){

@@ -41,10 +41,13 @@ const content = game.buyableBlobs.map((blob)=>{
     attributes.forEach(part => {
         realBlob = realBlob[part]
     })
+
+    const keys = realBlob.costType.split('.')
+    let finalKey = keys[keys.length - 1]
     return `
         <div>
         <p>${realBlob.name}</p>
-        <p>Cost: ${realBlob.cost} ${dictionary[realBlob.costType].name}</p>
+        <p>Cost: ${realBlob.cost} ${dictionary[finalKey].name}</p>
         <button data="${blob}" class="buyBlobButton base-button">Buy</button>
         </div>
         `;  
@@ -163,8 +166,18 @@ $("#blobListContainer").on("click", ".collect-bar", function(){
 
 
 function renderInventoryItems(){
-let insertHTML = ``;
-    insertHTML += `<div class="flex m-2 flex-col"><div class="flex flex-row"> <p class="mr-2">Bronze Keys: </p> <p>${game.currencyItems.bronzeKeys}</p></div><p class="order-2">${dictionary['bronzeKeys'].description}</p></div>`
+    let insertHTML = ``;
+    for(let itemKey in game.currencyItems){
+        if(!(itemKey in dictionary)){
+            console.warn(`Item key ${itemKey} not found in dictionary.`)
+            continue
+        }
+        if(game.currencyItems[itemKey] > 0){
+        insertHTML += `<div class="flex m-2 flex-col"><div class="flex flex-row"> <p class="mr-2">${dictionary[itemKey].name}: </p> <p>${game.currencyItems[itemKey]}</p></div><p class="order-2">${dictionary[itemKey].description}</p></div>`
+        }
+    }
+
+    
 return insertHTML
 }
 

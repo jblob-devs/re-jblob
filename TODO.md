@@ -1,3 +1,3 @@
 lodash saving, delete obselete properties
 
-buyblob button not working
+draggable x and y blobView not correct

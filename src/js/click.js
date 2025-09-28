@@ -47,12 +47,22 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
     const blobPath = $(this).attr("data")
     let realBlob = game
     let attributes = blobPath.split('.')
+
+   
     attributes.forEach(part => {
         realBlob = realBlob[part]
     })
     let costCurrencyName = realBlob.costType
-    let costCurrency = game.currencyItems[costCurrencyName]
-    if(costCurrency >= realBlob.cost){
+    const keys = costCurrencyName.split('.')
+    let finalKey = keys[keys.length - 1]
+    let curPath = game
+    console.log(keys)
+    for(let i = 0; i< keys.length - 1; i++){
+        const key = keys[i]
+        curPath = curPath[key]
+    }
+    console.log(curPath)
+    if(curPath[finalKey] >= realBlob.cost){
         if(game.curCapacity+1 > game.capacity){
             Swal.fire({
                 icon: 'error',
@@ -61,7 +71,7 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
                 
             })
         }else{
-        game.currencyItems[costCurrencyName] -= realBlob.cost
+        curPath[finalKey] -= realBlob.cost
         realBlob.owned++
         Swal.fire({
             text:'succesfully bought ' + realBlob.name + "!",
@@ -71,7 +81,12 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
     }else{
         Swal.fire({
             icon: 'error',
-            text:'Not enough ' + dictionary[costCurrencyName].name + "!",
+            text:'Not enough ' + dictionary[finalKey].name + "!",
         })
     }
 })
+
+
+export function getRandomInt(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}

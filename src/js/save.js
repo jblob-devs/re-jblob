@@ -16,7 +16,7 @@ export let game = {
             name: "Basic Blob",
             image: 'basicBlob',
             cost: 30,
-            costType: "roundCoins",
+            costType: "currencyItems.roundCoins",
             owned:1,
             level: 1,
             generateMaterial: "currencyItems.roundCoins",
@@ -35,7 +35,11 @@ export let game = {
         roundCoins: 0,
         pointyCoins: 0,
         flatCoins: 0,
-        bronzeKeys: 0
+        bronzeKeys: 0,
+        artifactShards: 0,
+        bloblets: 0,
+        bloodStones: 0,
+        gearBits: 0,
     },
     artifacts:{
     },
@@ -48,7 +52,11 @@ export let dictionary = {
     "roundCoins": {name: "Round Coins", description: 'smooth and round coins'},
     "pointyCoins":{name: "Pointy Coins", description: 'three pointed coins'},
     "flatCoins": {name: "Flat Coins",description:'boxy coins with dull edges'},
-    'bronzeKeys': {name: "Bronze Keys", description:'a faded key made of bronze'}
+    'bronzeKeys': {name: "Bronze Keys", description:'a faded key made of bronze'},
+    'artifactShards': {name: "Artifact Shards", description:'broken pieces of mysterious artifacts. perhaps they can be reforged?'},
+    'bloblets': {name: "Bloblets", description:'a strange unnerving light emanates from these'},
+    'bloodStones': {name: "Blood Stones", description:"it's blood. maybe"},
+    'gearBits': {name: "Gear Bits", description:'morphing pieces of an unknown metaloid'} 
 }
 
 export function saveGame(){
