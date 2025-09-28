@@ -90,3 +90,8 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
 export function getRandomInt(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function getFinalKey(fullPath){
+    const keys = fullPath.split('.')
+    return keys[keys.length - 1]
+}

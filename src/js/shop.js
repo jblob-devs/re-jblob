@@ -4,7 +4,7 @@ import { dictionary } from './save';
 import Swal from 'sweetalert2'
 import { artifactDictionary } from './item';
 import {getRandomInt} from './click.js'
-
+import { getFinalKey } from './click.js';
 
 export let openablesList = {
     'bronzeChest': {
@@ -92,14 +92,14 @@ $("#openOpenablesContainer").html(
     <div>
 
     <p>Bronze chest</p>
-    <p>A very typical chest, containing items fit for 3rd place</p>
-    <p>Cost: 1 bronze key</p>
+    <p>${openablesList['bronzeChest'].description}</p>
+    <p>Cost: ${openablesList['bronzeChest'].costNum} ${dictionary[getFinalKey(openablesList['bronzeChest'].costType)].name}</p>
     <button data-chest-type='bronzeChest' class="openOpenableButton base-button">Open</button>
     
     <p>Blood Chest</p>
-    <p>'Donde esta mi amigo?' - jorge. A sacrifice is needed.</p>
-    <p>Cost: 1 basic blob</p>
-    <button data-chest-type='bloodChest' data-currency-type="blobs.basicBlob.owned" data-currency-needed="1" class="openOpenableButton base-button">Open</button>
+    <p>${openablesList['bloodChest'].description}</p>
+    <p>Cost:  ${openablesList['bloodChest'].costNum} ${dictionary[getFinalKey(openablesList['bloodChest'].costType)].name}</p>
+    <button data-chest-type='bloodChest' class="openOpenableButton base-button">Open</button>
     
     </div>
     `
@@ -119,14 +119,12 @@ $('#gameBody').off("click", ".openOpenableButton").on("click", ".openOpenableBut
     let currencyType = openablesList[chestType].costType
     const fullPath = currencyType
     const keys = fullPath.split('.')
-    console.log(keys)
     let curPath = game
     let finalKey = keys[keys.length - 1]
     for(let i = 0; i< keys.length - 1; i++){
         const key = keys[i]
         curPath = curPath[key]
     }
-    console.log(finalKey)
     if(curPath[finalKey] >= currencyAmount){
         curPath[finalKey] -= Number(currencyAmount)
         rollChestLoot(chestType)
