@@ -13,7 +13,7 @@ const BLOBBY_SCALE_AMPLITUDE = 0.05;
 const BLOBBY_ROTATION_AMPLITUDE = 1.5;
 const blobIMG = (id) =>
     `
-<img src="src/assets/images/blobs/${id}.png" id="blob-${id}" class="transform scale-50"/>
+<img src="assets/images/blobs/${id}.png" id="blob-${id}" class="transform scale-50"/>
             
 `
 
