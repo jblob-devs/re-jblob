@@ -126,45 +126,45 @@ https://sweetalert2.github.io/#ajax-request`),Gb(r),typeof r.title=="string"&&(r
     <div>
     Blob Capacity: ${J.curCapacity} /  ${J.capacity}
     </div>
-    `}function Kf(){Object.keys(J.blobs).forEach(r=>{const i=J.blobs[r];if(i.owned>=1){const a=i.maxStorage*i.owned,d=i.curStorage/a*100,y=fe(`#progress-bar-${r}`),T=fe(`#progress-text-${r}`);y.css("width",d+"%"),T.text(`collect ${i.curStorage} / ${i.maxStorage*i.owned}`)}})}function oy(){const r=J.exp/J.expNeededToLevel*100,i=fe("#levelDivInside"),a=fe("#levelDivSpan");i.css("width",r+"%"),a.text(`Lv: ${J.level} (${J.exp} / ${J.expNeededToLevel})`)}function sy(){J.exp>=J.expNeededToLevel&&(J.level++,J.exp=J.exp-J.expNeededToLevel,J.expNeededToLevel=Math.round(J.expNeededToLevel*1.25),gn.fire({title:"Level up!",text:`Leveled up to Lv. ${J.level}`,focusConfirm:!1,allowEnterKey:!1}))}function ay(r){const i=J.blobs[r];if(i.owned<=0)return;const a=i.maxStorage*i.owned;i.curStorage>=a||(i.curStorage+=i.generateAmount,i.curStorage>a&&(i.curStorage=a))}function ly(r){const i=J.blobs[r],d=i.generateMaterial.split(".");let y=J;for(let $=0;$<d.length-1;$++){const U=d[$];y=y[U]}let T=d[d.length-1];y[T]+=Number(i.curStorage),i.curStorage=0}fe("#blobListContainer").on("click",".collect-bar",function(){const r=fe(this).data("blob-key");ly(r),Kf()});function uy(){let r="";for(let i in J.currencyItems){if(!(i in In)){console.warn(`Item key ${i} not found in dictionary.`);continue}J.currencyItems[i]>0&&(r+=`<div class="flex m-2 flex-col"><div class="flex flex-row"> <p class="mr-2">${In[i].name}: </p> <p>${J.currencyItems[i]}</p></div><p class="order-2">${In[i].description}</p></div>`)}return r}setInterval(function(){iy()},100);function Yc(r){let i=!1;for(let a=0;a<J.artifacts.length;a++)if(J.artifacts[a].id===r.id){J.artifacts[a].owned+=1,i=!0;break}i||J.artifacts.push(r)}let zr={roundStone:{name:"Round Stone",description:"a very round stone.",chance:r=>.1+r.level*.05,descriptionEffect:r=>` ${(zr.roundStone.chance(r)*100).toFixed(0)}% chance to generate additional round coins when collecting blob production.`,effect:{type:"on_click",execute:r=>{const i=zr.roundStone.chance(r)*100;Math.floor(Math.random()*100)<i&&(J.currencyItems.roundCoins+=r.level*3,console.log("round stone triggered"))}},give:r=>{console.log("given"),Yc({id:"roundStone",level:r,owned:1})}},plantableSeedling:{name:"Plantable Seedling",description:"A seed that just desperate to be planted. Will you plant it?.",chance:r=>.05,descriptionEffect:r=>{const i=zr.plantableSeedling.chance(r);return r.grown?"It seems to have grown...give it a nudge to see what it's turned into.":` ${(i*100).toFixed(0)}% chance to grow on clicking the tap button. Check back in to see if it's grown.`},effect:{type:"on_click",execute:r=>{const i=zr.plantableSeedling.chance(r)*100;Math.floor(Math.random()*100)<i&&(r.grown=!0)}},give:r=>{Yc({id:"plantableSeedling",level:r,grown:!1,owned:1})}}};function cy(r){for(const i in J.artifacts)if(Object.prototype.hasOwnProperty.call(J.artifacts,i)){const a=J.artifacts[i],d=zr[i];d&&d.effect&&d.effect.type===r&&d.effect.execute(a)}}const fy=`\r
-    <div class="">\r
-        <div class="flex justify-between">\r
-    <h1 class=" flex-grow flex justify-center text-4xl">Shop</h1>\r
-    <button class='closeModalButton base-button' data="shopContainer">X</button>\r
-        </div>\r
-    <div class="overflow-y-scroll max-h-[50vh]">\r
-        <h2 class="m-5 text-2xl">Blobs</h2>\r
-        <div id="buyBlobsContainer">\r
-            <p></p>\r
-        </div>\r
-        <h2 class="m-5 text-2xl">Keeper's Haul</h2>\r
-        <p id="shopkeeperTalkingDialogue"><i></i></p>\r
-        <div id="buyInventoryContainer" class="grid gap-1 grid-cols-3">\r
-\r
-        </div>\r
-\r
-        <h2 class="m-5 text-2xl">Openables</h2>\r
-        <p><i>what could be inside?</i></p>\r
-        <div id="openOpenablesContainer" class="">\r
-\r
-        </div>\r
-    </div>\r
-\r
-    </div>\r
-`,dy=`<!DOCTYPE html>\r
-    <div class="">\r
-        <div class="flex justify-between">\r
-    <h1 class="flex-grow flex justify-center text-3xl">Inventory</h1>\r
-        <button class='closeModalButton base-button' data="inventoryContainer">X</button>\r
-        </div>\r
-\r
-        <h2  class="m-5 text-3xl">Items</h2>\r
-        <div id='itemsContainer' class=" overflow-y-scroll max-h-[50vh]">\r
-    \r
-\r
-        </div>\r
-    </div>\r
-`,hy=`<div id="blobViewerContainer" class="mt-4 w-[30vw] h-[30vh] max-w-4xl">\r
+    `}function Kf(){Object.keys(J.blobs).forEach(r=>{const i=J.blobs[r];if(i.owned>=1){const a=i.maxStorage*i.owned,d=i.curStorage/a*100,y=fe(`#progress-bar-${r}`),T=fe(`#progress-text-${r}`);y.css("width",d+"%"),T.text(`collect ${i.curStorage} / ${i.maxStorage*i.owned}`)}})}function oy(){const r=J.exp/J.expNeededToLevel*100,i=fe("#levelDivInside"),a=fe("#levelDivSpan");i.css("width",r+"%"),a.text(`Lv: ${J.level} (${J.exp} / ${J.expNeededToLevel})`)}function sy(){J.exp>=J.expNeededToLevel&&(J.level++,J.exp=J.exp-J.expNeededToLevel,J.expNeededToLevel=Math.round(J.expNeededToLevel*1.25),gn.fire({title:"Level up!",text:`Leveled up to Lv. ${J.level}`,focusConfirm:!1,allowEnterKey:!1}))}function ay(r){const i=J.blobs[r];if(i.owned<=0)return;const a=i.maxStorage*i.owned;i.curStorage>=a||(i.curStorage+=i.generateAmount,i.curStorage>a&&(i.curStorage=a))}function ly(r){const i=J.blobs[r],d=i.generateMaterial.split(".");let y=J;for(let $=0;$<d.length-1;$++){const U=d[$];y=y[U]}let T=d[d.length-1];y[T]+=Number(i.curStorage),i.curStorage=0}fe("#blobListContainer").on("click",".collect-bar",function(){const r=fe(this).data("blob-key");ly(r),Kf()});function uy(){let r="";for(let i in J.currencyItems){if(!(i in In)){console.warn(`Item key ${i} not found in dictionary.`);continue}J.currencyItems[i]>0&&(r+=`<div class="flex m-2 flex-col"><div class="flex flex-row"> <p class="mr-2">${In[i].name}: </p> <p>${J.currencyItems[i]}</p></div><p class="order-2">${In[i].description}</p></div>`)}return r}setInterval(function(){iy()},100);function Yc(r){let i=!1;for(let a=0;a<J.artifacts.length;a++)if(J.artifacts[a].id===r.id){J.artifacts[a].owned+=1,i=!0;break}i||J.artifacts.push(r)}let zr={roundStone:{name:"Round Stone",description:"a very round stone.",chance:r=>.1+r.level*.05,descriptionEffect:r=>` ${(zr.roundStone.chance(r)*100).toFixed(0)}% chance to generate additional round coins when collecting blob production.`,effect:{type:"on_click",execute:r=>{const i=zr.roundStone.chance(r)*100;Math.floor(Math.random()*100)<i&&(J.currencyItems.roundCoins+=r.level*3,console.log("round stone triggered"))}},give:r=>{console.log("given"),Yc({id:"roundStone",level:r,owned:1})}},plantableSeedling:{name:"Plantable Seedling",description:"A seed that just desperate to be planted. Will you plant it?.",chance:r=>.05,descriptionEffect:r=>{const i=zr.plantableSeedling.chance(r);return r.grown?"It seems to have grown...give it a nudge to see what it's turned into.":` ${(i*100).toFixed(0)}% chance to grow on clicking the tap button. Check back in to see if it's grown.`},effect:{type:"on_click",execute:r=>{const i=zr.plantableSeedling.chance(r)*100;Math.floor(Math.random()*100)<i&&(r.grown=!0)}},give:r=>{Yc({id:"plantableSeedling",level:r,grown:!1,owned:1})}}};function cy(r){for(const i in J.artifacts)if(Object.prototype.hasOwnProperty.call(J.artifacts,i)){const a=J.artifacts[i],d=zr[i];d&&d.effect&&d.effect.type===r&&d.effect.execute(a)}}const fy=`
+    <div class="">
+        <div class="flex justify-between">
+    <h1 class=" flex-grow flex justify-center text-4xl">Shop</h1>
+    <button class='closeModalButton base-button' data="shopContainer">X</button>
+        </div>
+    <div class="overflow-y-scroll max-h-[50vh]">
+        <h2 class="m-5 text-2xl">Blobs</h2>
+        <div id="buyBlobsContainer">
+            <p></p>
+        </div>
+        <h2 class="m-5 text-2xl">Keeper's Haul</h2>
+        <p id="shopkeeperTalkingDialogue"><i></i></p>
+        <div id="buyInventoryContainer" class="grid gap-1 grid-cols-3">
+
+        </div>
+
+        <h2 class="m-5 text-2xl">Openables</h2>
+        <p><i>what could be inside?</i></p>
+        <div id="openOpenablesContainer" class="">
+
+        </div>
+    </div>
+
+    </div>
+`,dy=`<!DOCTYPE html>
+    <div class="">
+        <div class="flex justify-between">
+    <h1 class="flex-grow flex justify-center text-3xl">Inventory</h1>
+        <button class='closeModalButton base-button' data="inventoryContainer">X</button>
+        </div>
+
+        <h2  class="m-5 text-3xl">Items</h2>
+        <div id='itemsContainer' class=" overflow-y-scroll max-h-[50vh]">
+    
+
+        </div>
+    </div>
+`,hy=`<div id="blobViewerContainer" class="mt-4 w-[30vw] h-[30vh] max-w-4xl">
 </div>`;fe("#blobViewingContainer").html(hy);fe("#circleClickButton").on("click",function(){J.currencyItems.roundCoins+=J.clickStats.roundCoinsPerClick,J.totalClicks++,J.exp++,cy("on_click")});fe("#blobDivTitle").on("click",function(){fe("#blobContainer").slideToggle("fast")});fe("#shopButton").on("click",function(){fe("#shopContainer").html(fy),Zf(),fe("#shopContainer").slideToggle("fast")});fe("#inventoryButton").on("click",function(){fe("#inventoryContainer").html(dy),fe("#inventoryContainer").slideToggle("fast","linear")});fe("#gameBody").on("click",".closeModalButton",function(){const r=fe(this).attr("data");fe(`#${r}`).slideToggle("fast")});fe("#gameBody").on("click",".buyBlobButton",function(){console.log("buying blob");const r=fe(this).attr("data");let i=J;r.split(".").forEach(U=>{i=i[U]});const y=i.costType.split(".");let T=y[y.length-1],$=J;console.log(y);for(let U=0;U<y.length-1;U++){const Y=y[U];$=$[Y]}console.log($),$[T]>=i.cost?J.curCapacity+1>J.capacity?gn.fire({icon:"error",text:"Not enough capacity!",footer:"increase your capacity to hold more blobs!"}):($[T]-=i.cost,i.owned++,gn.fire({text:"succesfully bought "+i.name+"!"})):gn.fire({icon:"error",text:"Not enough "+In[T].name+"!"})});function Xc(r,i){return Math.floor(Math.random()*(i-r+1))+r}function Gc(r){const i=r.split(".");return i[i.length-1]}let Pn={bronzeChest:{name:"Bronze Chest",description:"A very typical chest, containing items fit for 3rd place",costNum:1,costType:"currencyItems.bronzeKeys",lootTable:[{item:"currencyItems.artifactShards",amount:[1,3],weight:30},{item:"currencyItems.bloblets",amount:[4,5],weight:20},{item:"currencyItems.gearBits",amount:[5,10],weight:50}]},bloodChest:{name:"Bronze Chest",description:"the chest wants nothing less than life",costNum:10,costType:"currencyItems.bloodStones",lootTable:[{item:"currencyItems.artifactShards",amount:[10,15],weight:50},{item:"currencyItems.bloblets",amount:[5,6],weight:50}]}};setInterval(function(){let r,i=["have i seen you before? i can't remember...","take a look around. i know there's something you'll like","not sure where these are from, but i like them","strange items, stranger feelings about them","they'll serve you better than they served me","i don't eat carrots. i had a friend who was a carrot","treasures from afar? not for me","i don't see the appeal. to each their own i guess"];r=i[Math.floor(Math.random()*i.length)],fe("#shopkeeperTalkingDialogue").html("<i>"+r+"</i>")},1e4);function Zf(){fe("#buyInventoryContainer").empty();let r=Object.keys(kl);for(let i=0;i<J.shopSlots;i++){let a=r[Math.floor(Math.random()*r.length)],d=kl[a],y=`<div class="m-1 p-2 rounded shadow-md">
         <h3 class="p-2 text-xl font-bold">${d.name}</h3>
         <p>${d.description}</p>
