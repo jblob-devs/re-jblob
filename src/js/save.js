@@ -41,8 +41,8 @@ export let game = {
         bloodStones: 0,
         gearBits: 0,
     },
-    artifacts:{
-    },
+    artifacts:[
+    ],
 }
 
 let emptyGameFile = JSON.parse(JSON.stringify(game))

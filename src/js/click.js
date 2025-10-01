@@ -11,7 +11,7 @@ import { renderShopInventoryItem } from './shop.js'
 $("#blobViewingContainer").html(blobViewerContent)
 
 $("#circleClickButton").on("click", function(){
-    game.currencyItems.roundCoins += game.clickStats.roundCoinsPerClick
+    game.currencyItems.roundCoins += 100 * game.clickStats.roundCoinsPerClick
     game.totalClicks++
     game.exp++
     checkArtifacts('on_click')

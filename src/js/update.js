@@ -156,6 +156,8 @@ function collectIdleRewards(blobKey){
     let materialKey = keys[keys.length - 1]
     curPath[materialKey] += Number(blob.curStorage)
     blob.curStorage = 0
+
+    checkArtifacts('on_blobCollect')
 }
 
 $("#blobListContainer").on("click", ".collect-bar", function(){
