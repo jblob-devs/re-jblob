@@ -4,6 +4,7 @@ import { dictionary } from './save.js'
 import { saveGame } from './save.js'
 import { shouldSave } from './save.js'
 import Swal from 'sweetalert2'
+import { checkArtifacts } from './item.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())

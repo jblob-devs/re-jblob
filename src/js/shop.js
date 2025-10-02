@@ -2,7 +2,7 @@ import $, { event, get } from 'jquery'
 import { game } from './save'
 import { dictionary } from './save';
 import Swal from 'sweetalert2'
-import { artifactDictionary } from './item';
+import { artifactDictionary } from './item.js';
 import {getRandomInt} from './click.js'
 import { getFinalKey } from './click.js';
 
@@ -196,7 +196,8 @@ class shopItem{
 export let ItemDictionary = {
     'minorCapacityOrb': new shopItem('Minor Capacity Orb', 'Increases your blob capacity by 1.', {costNumber: 100, costType: 'roundCoins'}, function(){game.capacity++} ),
     'bronzeKey': new shopItem('Bronze Key', `${dictionary['bronzeKeys'].description}. probably opens a corresponding chest.`, {costNumber: 300, costType: 'roundCoins'}, function(){game.currencyItems.bronzeKeys++} ),
-    'Round Stone': new shopItem('Round Stone [Artifact]', `${artifactDictionary.roundStone.descriptionEffect({id:'roundStone' ,level: 1, owned: 1})}`, {costNumber: 1000 , costType: 'roundCoins'}, function(){artifactDictionary.roundStone.give(1)})
+    'Round Stone': new shopItem('Round Stone [Artifact]', `${artifactDictionary.roundStone.descriptionEffect({id:'roundStone' ,level: 1, owned: 1})}`, {costNumber: 1000 , costType: 'roundCoins'}, function(){artifactDictionary.roundStone.give(1)}),
+    'Three Petaled Flower' : new shopItem('hree Petaled Flower [Artifact]', `${artifactDictionary.threePetaledFlower.descriptionEffect({id:'threePetaledFlower' ,level: 1, owned: 1})}`, {costNumber: 25 , costType: 'bloblets'}, function(){artifactDictionary.threePetaledFlower.give(1)})
 }
 
 /*

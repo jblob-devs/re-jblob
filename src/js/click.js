@@ -13,6 +13,7 @@ $("#blobViewingContainer").html(blobViewerContent)
 $("#circleClickButton").on("click", function(){
     game.currencyItems.roundCoins += 100 * game.clickStats.roundCoinsPerClick
     game.totalClicks++
+    game.currencyItems.bloblets++
     game.exp++
     checkArtifacts('on_click')
 })

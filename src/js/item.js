@@ -85,35 +85,34 @@ export let artifactDictionary = {
                 console.log(triggerchance)
                 if(Math.floor(Math.random()*100) < triggerchance ){
                     game.currencyItems.gearBits += artifact_data.level * getRandomInt(1,3)
+                    console.log('anvil trigger')
                 }
             }
         },
         give: (startlevel)=>{
             giveItem({id: 'damagedAnvil', level: startlevel, owned: 1})
         }
-    }, 'roundStone': {
-        name: 'Round Stone',
-        description: 'a very round stone.',
+    }, 'threePetaledFlower': {
+        name: 'Three Petaled Flower',
+        description: 'it only has 3 petals, maybe someone picked them?',
         chance: (artifact_data)=>{
-        return 0.1 + (artifact_data.level * 0.05)
+        return 1
         },
         descriptionEffect: (artifact_data)=>{
             const calcChance=  artifactDictionary.roundStone.chance(artifact_data)
-        return ` ${(calcChance * 100).toFixed(0)}% chance to generate additional round coins when collecting blob production.`
+        return `Generates ${artifact_data.level * 10} rounded up of round coins, pointy coins and flat coins generated per tap when blobs generate.`
         },
         effect:{
-            type:'on_click',
+            type:'on_blobCollect',
             execute: (artifact_data) =>{
-                const triggerchance =  artifactDictionary.roundStone.chance(artifact_data) * 100
-                console.log(triggerchance)
-                if(Math.floor(Math.random()*100) < triggerchance ){
-                    game.currencyItems.roundCoins += artifact_data.level * 3
-                    console.log('round stone triggered')
-                }
+                game.currencyItems.roundCoins += Math.ceil(game.clickStats.roundCoinsPerClick * ((artifact_data.level + 10)/10))
+                game.currencyItems.pointyCoins +=Math.ceil(game.clickStats.pointyCoinsPerClick * ((artifact_data.level + 10)/10))
+                game.currencyItems.flatCoins +=Math.ceil(game.clickStats.flatCoinsPerClick* ((artifact_data.level + 10)/10))
+                console.log('three petaled flower')
             }
         },
         give: (startlevel)=>{
-            giveItem({id: 'roundStone', level: startlevel, owned: 1})
+            giveItem({id: 'threePetaledFlower', level: startlevel, owned: 1})
         }
     },
 }
