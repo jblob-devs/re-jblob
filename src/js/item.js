@@ -1,5 +1,6 @@
 import {game} from './save'
 import {getRandomInt} from './click.js'
+import { get } from 'jquery';
 
 function giveItem(item){
     let exist = false;
@@ -30,7 +31,7 @@ export let artifactDictionary = {
         effect:{
             type:'on_click',
             execute: (artifact_data) =>{
-                const triggerchance =  artifactDictionary.roundStone.chance(artifact_data) * 100
+                const triggerchance = artifactDictionary.roundStone.chance(artifact_data) * 100
                 console.log(triggerchance)
                 if(Math.floor(Math.random()*100) < triggerchance ){
                     game.currencyItems.roundCoins += artifact_data.level * 3
@@ -68,20 +69,20 @@ export let artifactDictionary = {
         give: (startlevel)=>{
             giveItem( {id: 'plantableSeedling', level: startlevel, grown: false, owned: 1})
         }
-    }, 'DamagedAnvil': {
+    }, 'damagedAnvil': {
         name: 'damaged anvil',
         description: 'blobs can use it to make metal, sometimes, when it works',
         chance: (artifact_data)=>{
         return 0.1 + (artifact_data.level * 0.1)
         },
         descriptionEffect: (artifact_data)=>{
-            const calcChance=  artifactDictionary.roundStone.chance(artifact_data)
+            const calcChance=  artifactDictionary.damagedAnvil.chance(artifact_data)
         return ` ${(calcChance * 100).toFixed(0)}% chance to generate gear bits on collecting blob production`
         },
         effect:{
-            type:'on_blobCollect',
+            type:'on_blobCollect_maxCap',
             execute: (artifact_data) =>{
-                const triggerchance =  artifactDictionary.roundStone.chance(artifact_data) * 100
+                const triggerchance =  artifactDictionary.damagedAnvil.chance(artifact_data) * 100
                 console.log(triggerchance)
                 if(Math.floor(Math.random()*100) < triggerchance ){
                     game.currencyItems.gearBits += artifact_data.level * getRandomInt(1,3)
@@ -99,11 +100,11 @@ export let artifactDictionary = {
         return 1
         },
         descriptionEffect: (artifact_data)=>{
-            const calcChance=  artifactDictionary.roundStone.chance(artifact_data)
+            const calcChance =  artifactDictionary.threePetaledFlower.chance(artifact_data)
         return `Generates ${artifact_data.level * 10} rounded up of round coins, pointy coins and flat coins generated per tap when blobs generate.`
         },
         effect:{
-            type:'on_blobCollect',
+            type:'on_blobCollect_maxCap',
             execute: (artifact_data) =>{
                 game.currencyItems.roundCoins += Math.ceil(game.clickStats.roundCoinsPerClick * ((artifact_data.level + 10)/10))
                 game.currencyItems.pointyCoins +=Math.ceil(game.clickStats.pointyCoinsPerClick * ((artifact_data.level + 10)/10))
@@ -116,7 +117,6 @@ export let artifactDictionary = {
         }
     },
 }
-
 
 export function checkArtifacts(type) {
     if (!Array.isArray(game.artifacts)) {
@@ -133,5 +133,14 @@ export function checkArtifacts(type) {
                 artifactTemplate.effect.execute(playerArtifactData);
             }
         }
+    }
+}
+
+export function removeArtifact(artifactId) {
+    const index = game.artifacts.findIndex(artifact => artifact.id === artifactId);
+    if (index !== -1) {
+        if (game.artifacts[index].owned > 1) {
+            game.artifacts[index].owned -= 1;
+        } 
     }
 }

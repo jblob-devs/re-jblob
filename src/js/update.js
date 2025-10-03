@@ -5,6 +5,7 @@ import { saveGame } from './save.js'
 import { shouldSave } from './save.js'
 import Swal from 'sweetalert2'
 import { checkArtifacts } from './item.js'
+import { artifactDictionary } from './item.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
@@ -22,6 +23,7 @@ const displayGameTick = function(){
     
     $("#blobListHeader").html(renderBlobListHeader())
     $('#itemsContainer').html(renderInventoryItems())
+    $('#artifactContainer').html(renderArtifacts())
     renderIdleBlobProgressUI()
     renderBlobList()
     renderLevelbar()
@@ -154,6 +156,9 @@ function collectIdleRewards(blobKey){
         const key = keys[i]
         curPath = curPath[key]
     }
+    if(blob.curStorage >= blob.maxStorage * blob.owned){
+        checkArtifacts('on_blobCollect_maxCap')
+    }
     let materialKey = keys[keys.length - 1]
     curPath[materialKey] += Number(blob.curStorage)
     blob.curStorage = 0
@@ -184,7 +189,29 @@ function renderInventoryItems(){
 return insertHTML
 }
 
-
+function renderArtifacts(){
+    for(let artifactData of game.artifacts){
+        let artifactTemplate = artifactDictionary[artifactData.id || artifactData.key]
+        if(!artifactTemplate){
+            console.warn(`Artifact template for ${artifactData.id || artifactData.key} not found.`)
+            continue
+        }
+        artifactData.name = artifactTemplate.name
+        artifactData.description = artifactTemplate.description
+        artifactData.descriptionEffect = artifactTemplate.descriptionEffect(artifactData)
+    }
+    let insertHTML = ``;
+    for(let artifactData of game.artifacts){
+        insertHTML += `
+        <div class="border border-gray-300 rounded-lg p-4 mb-4">
+            <p class="font-semibold text-lg">${artifactData.name} (Lv. ${artifactData.level})</p>
+            <p>${artifactData.description}</p>
+            <p class="mt-2 italic">${artifactData.descriptionEffect}</p>
+        </div>
+        `
+    }
+    return insertHTML
+}
 setInterval(function(){
     displayGameTick()
 },100)
