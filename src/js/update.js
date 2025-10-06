@@ -9,7 +9,8 @@ import { artifactDictionary } from './item.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
-
+ $('#artifactContainer').html(renderArtifacts())
+ let curArtifactHtml = null
 const displayGameTick = function(){
     if(shouldSave){
     saveGame()
@@ -23,7 +24,10 @@ const displayGameTick = function(){
     
     $("#blobListHeader").html(renderBlobListHeader())
     $('#itemsContainer').html(renderInventoryItems())
-    $('#artifactContainer').html(renderArtifacts())
+
+    const newArtifactHtml = renderArtifacts()
+    $('#artifactContainer').html(newArtifactHtml)
+
     renderIdleBlobProgressUI()
     renderBlobList()
     renderLevelbar()
@@ -143,7 +147,7 @@ if(blob.owned <= 0) return;
 const totalMax = blob.maxStorage * blob.owned
 if(blob.curStorage >= totalMax) return;
 
-blob.curStorage += blob.generateAmount
+blob.curStorage += blob.owned * blob.generateAmount
 if(blob.curStorage > totalMax) blob.curStorage = totalMax;
 }
 
@@ -203,11 +207,28 @@ function renderArtifacts(){
     let insertHTML = ``;
     for(let artifactData of game.artifacts){
         insertHTML += `
-        <div class="border border-gray-300 rounded-lg p-4 mb-4">
-            <p class="font-semibold text-lg">${artifactData.name} (Lv. ${artifactData.level})</p>
-            <p>${artifactData.description}</p>
-            <p class="mt-2 italic">${artifactData.descriptionEffect}</p>
+       <div class="border border-gray-300 rounded-lg p-4 mb-4">
+        <p class="font-semibold text-lg">${artifactData.name} (Lv. ${artifactData.level})</p>
+        <p>${artifactData.description}</p>
+            <div class="tooltip-wrapper">
+
+        <p class="font-medium text-gray-600 hover:text-gray-800 transition duration-150 underline decoration-dashed decoration-gray-400">
+            Effect Details
+        </p>
+
+        <div class="tooltip-content">
+            
+            <p class="font-medium">Effect:</p>
+            <p class="text-xs italic mt-1">
+                ${artifactData.descriptionEffect}
+            </p>
+
+            <div class="tooltip-tail">
+                <div class="tooltip-arrow"></div>
+            </div>
         </div>
+    </div>
+</div>
         `
     }
     return insertHTML

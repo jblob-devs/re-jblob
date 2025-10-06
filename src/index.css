@@ -7,3 +7,22 @@
 .base-modal{
     @apply absolute bg-amber-50 shadow-lg rounded-2xl p-4 hidden
 }
+
+
+.tooltip-wrapper {
+    @apply relative inline-block mt-2 cursor-pointer;
+}
+.tooltip-content {
+        @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none 
+               opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-80
+               bg-gray-800 text-gray-100 text-sm rounded-lg py-3 px-4 shadow-xl 
+               ring-1 ring-gray-600 relative;
+}
+.tooltip-tail {
+        @apply absolute top-full left-1/2 -translate-x-1/2 -mt-1.5;
+}
+
+
+.tooltip-arrow {
+        @apply w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-800;
+}

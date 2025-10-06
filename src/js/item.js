@@ -1,6 +1,5 @@
 import {game} from './save'
 import {getRandomInt} from './click.js'
-import { get } from 'jquery';
 
 function giveItem(item){
     let exist = false;
