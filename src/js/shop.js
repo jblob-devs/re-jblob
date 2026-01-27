@@ -1,8 +1,8 @@
 import $, { event, get } from 'jquery'
 import { game } from './save'
 import { dictionary } from './save';
-import Swal from 'sweetalert2'
 import { artifactDictionary } from './item.js';
+import Swal from 'sweetalert2'
 import {getRandomInt} from './click.js'
 import { getFinalKey } from './click.js';
 export let openablesList = {

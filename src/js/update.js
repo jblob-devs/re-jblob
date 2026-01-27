@@ -71,8 +71,11 @@ function renderBlobList(){
             return `
             <div id="blob-${blobKey}" class="border border-gray-300 rounded-lg p-4 mb-4">
 
-
+            <div class="flex flex-row items-center justify-between">
             <p class="font-semibold text-lg">${realBlob.name}</p>
+            <img src="assets/images/blobs/${realBlob.image}.png" class="w-16 h-auto"/>
+            </div>
+            <br>
             <p>( ${realBlob.owned} )</p>
 
 
@@ -212,21 +215,11 @@ function renderArtifacts(){
         <p>${artifactData.description}</p>
             <div class="tooltip-wrapper">
 
-        <p class="font-medium text-gray-600 hover:text-gray-800 transition duration-150 underline decoration-dashed decoration-gray-400">
-            Effect Details
-        </p>
-
-        <div class="tooltip-content">
-            
             <p class="font-medium">Effect:</p>
             <p class="text-xs italic mt-1">
                 ${artifactData.descriptionEffect}
             </p>
 
-            <div class="tooltip-tail">
-                <div class="tooltip-arrow"></div>
-            </div>
-        </div>
     </div>
 </div>
         `
