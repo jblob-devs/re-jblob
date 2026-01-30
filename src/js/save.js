@@ -43,6 +43,12 @@ export let game = {
     },
     artifacts:[
     ],
+    unlockedAltars:[
+
+    ],
+    unlockedWarpLocations:[
+
+    ]
 }
 
 let emptyGameFile = JSON.parse(JSON.stringify(game))
@@ -57,6 +63,13 @@ export let dictionary = {
     'bloblets': {name: "Bloblets", description:'a strange unnerving light emanates from these'},
     'bloodStones': {name: "Blood Stones", description:"it's blood. maybe"},
     'gearBits': {name: "Gear Bits", description:'morphing pieces of an unknown metaloid'} 
+}
+
+export const warpLocationDictionary = {
+    'SlimedLake': {
+        name: 'Slimed Lake',
+        description: 'A pleasant lake full of life. It can get a bit slimy when it rains.'
+    }
 }
 
 export function saveGame(){

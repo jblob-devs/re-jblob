@@ -6,10 +6,13 @@ import { shouldSave } from './save.js'
 import Swal from 'sweetalert2'
 import { checkArtifacts } from './item.js'
 import { artifactDictionary } from './item.js'
+import {renderShopInventoryItem} from './shop.js'
+import { warpLocationDictionary } from './save.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
  $('#artifactContainer').html(renderArtifacts())
+ renderShopInventoryItem()
  let curArtifactHtml = null
 const displayGameTick = function(){
     if(shouldSave){
@@ -32,7 +35,14 @@ const displayGameTick = function(){
     renderBlobList()
     renderLevelbar()
     checkLevel()
+    renderWarpLocations()
+
 }
+
+
+const shopRefresh = setInterval(function(){
+    renderShopInventoryItem()
+}, game.shopRefreshTimer)
 
 const idleRewards = setInterval(function(){
 Object.keys(game.blobs).map((blobKey)=>{
@@ -77,7 +87,11 @@ function renderBlobList(){
             </div>
             <br>
             <p>( ${realBlob.owned} )</p>
-
+            <br>
+            <p><i>Interact</i></p>
+            <div class="flex flex-row gap-2 mb-2">
+            <button class="base-button">Feed</button> ${checkAltarUnlocks('blood') ? '<button class="base-button">Sacrifice</button>' : ''}
+            </div>
 
             <div data-blob-key="${blobKey}" class="collect-bar w-full relative rounded-full border-1 h-6 hover:h-6.5 transition-all duration-300 justify-self-center m-3 border-green-600">
                 <div id="progress-bar-${blobKey}" class=" bg-green-500 h-full rounded-full transition-all duration-500 absolute inset-0 z-0" style="width: 0%"></div>
@@ -140,6 +154,15 @@ function checkLevel(){
             allowEnterKey: false,
         })
     }
+    if(game.level >= 2){
+        unlockWarpLocation('SlimedLake')
+    }
+}
+
+function unlockWarpLocation(locationName){
+    if(!game.unlockedWarpLocations.includes(locationName)){
+        game.unlockedWarpLocations.push(locationName)
+    }
 }
 
 function generateIdleRewards(blobKey){
@@ -196,6 +219,21 @@ function renderInventoryItems(){
 return insertHTML
 }
 
+function renderWarpLocations(){
+    let insertHTML = ``;
+    for(let location of game.unlockedWarpLocations){
+        console.log(warpLocationDictionary[location])
+        insertHTML += 
+        `
+        <div class="border border-gray-300 rounded-lg p-4 mb-4">
+        <p class="font-semibold text-lg">${warpLocationDictionary[location].name}</p>
+        <p>${warpLocationDictionary[location].description}</p>
+        <button data-location="${location}" class="warpToLocationButton base-button">Warp</button>
+        </div>
+        `
+    }
+}
+
 function renderArtifacts(){
     for(let artifactData of game.artifacts){
         let artifactTemplate = artifactDictionary[artifactData.id || artifactData.key]
@@ -229,3 +267,10 @@ function renderArtifacts(){
 setInterval(function(){
     displayGameTick()
 },100)
+
+
+function checkAltarUnlocks(altarName){
+    if(game.unlockedAltars.includes(altarName)){
+        return true;
+    }
+}
