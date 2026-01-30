@@ -7,6 +7,7 @@ import warpViewerContent from '../html/warp.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
+import { warpLocationDictionary } from './save.js'
 
 $("#blobViewingContainer").html(blobViewerContent)
 
@@ -32,6 +33,11 @@ $("#warpContainer").html(warpViewerContent)
 $("#warpContainer").slideToggle("fast")
 })
 
+$('#warpContainer').on("click", ".warpToLocationButton", function(){
+    $('#warpNav').hide()
+$('#warpPlaceContainer').html(warpLocationDictionary[$(this).data("location")].render())
+$("#WarpTitle").html(warpLocationDictionary[$(this).data("location")].name)
+})
 
 $("#inventoryButton").on("click", function(){
 $("#inventoryContainer").html(inventoryContent)

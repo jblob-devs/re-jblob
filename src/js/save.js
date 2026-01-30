@@ -68,7 +68,19 @@ export let dictionary = {
 export const warpLocationDictionary = {
     'SlimedLake': {
         name: 'Slimed Lake',
-        description: 'A pleasant lake full of life. It can get a bit slimy when it rains.'
+        description: 'A pleasant lake full of life. It can get a bit slimy when it rains.',
+        render: () => `
+       <div class="SlimedLakeLocation relative w-full h-96 overflow-hidden bg-blue-900 rounded-xl cursor-pointer" id="slime-lake">
+            <div class="slime-bg"></div>
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+    
+        <div class="relative z-10 p-6 text-green-100 pointer-events-none">
+        <h1 class="text-3xl font-bold italic tracking-wider">Slimed Lake</h1>
+        <p class="mt-2 opacity-80" id="slime-status">The surface is thick and bubbling...</p>
+        </div>
+        </div>
+        `
     }
 }
 

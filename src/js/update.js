@@ -13,6 +13,7 @@ $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
  $('#artifactContainer').html(renderArtifacts())
  renderShopInventoryItem()
+
  let curArtifactHtml = null
 const displayGameTick = function(){
     if(shouldSave){
@@ -27,6 +28,13 @@ const displayGameTick = function(){
     
     $("#blobListHeader").html(renderBlobListHeader())
     $('#itemsContainer').html(renderInventoryItems())
+
+     const newWarpContent = renderWarpLocations()
+    const curWarpContent = $("#warpNav").html()
+    if (curWarpContent && newWarpContent.trim() !== curWarpContent.trim()) {
+        $("#warpNav").html(newWarpContent);
+    }
+
 
     const newArtifactHtml = renderArtifacts()
     $('#artifactContainer').html(newArtifactHtml)
@@ -222,17 +230,19 @@ return insertHTML
 function renderWarpLocations(){
     let insertHTML = ``;
     for(let location of game.unlockedWarpLocations){
-        console.log(warpLocationDictionary[location])
         insertHTML += 
         `
         <div class="border border-gray-300 rounded-lg p-4 mb-4">
-        <p class="font-semibold text-lg">${warpLocationDictionary[location].name}</p>
+        <h2 class="font-semibold text-lg">${warpLocationDictionary[location].name}</h2>
         <p>${warpLocationDictionary[location].description}</p>
         <button data-location="${location}" class="warpToLocationButton base-button">Warp</button>
         </div>
         `
     }
+    return insertHTML
 }
+
+
 
 function renderArtifacts(){
     for(let artifactData of game.artifacts){
@@ -273,4 +283,28 @@ function checkAltarUnlocks(altarName){
     if(game.unlockedAltars.includes(altarName)){
         return true;
     }
+}
+
+
+function initSlimedLake() {
+    const lake = document.getElementById('slime-lake');
+    const status = document.getElementById('slime-status');
+
+    lake.addEventListener('click', (e) => {
+        const rect = lake.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        // Visual "Plop"
+        const plop = document.createElement('div');
+        plop.className = 'plop';
+        plop.style.left = `${x}px`;
+        plop.style.top = `${y}px`;
+        lake.appendChild(plop);
+
+        // UI Feedback
+        status.innerText = "You poke the slime... it feels sticky.";
+        
+        setTimeout(() => plop.remove(), 600);
+    });
 }
