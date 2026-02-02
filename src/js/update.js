@@ -229,6 +229,9 @@ return insertHTML
 
 function renderWarpLocations(){
     let insertHTML = ``;
+    if(game.unlockedWarpLocations.length === 0){
+        return insertHTML
+    }
     for(let location of game.unlockedWarpLocations){
         insertHTML += 
         `
