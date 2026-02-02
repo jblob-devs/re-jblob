@@ -7,7 +7,7 @@ import warpViewerContent from '../html/warp.html?raw'
 import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
-import { warpLocationDictionary } from './save.js'
+import {warpLocationDictionary} from './warpPlaces.js'
 
 $("#blobViewingContainer").html(blobViewerContent)
 
@@ -105,3 +105,24 @@ export function getFinalKey(fullPath){
     const keys = fullPath.split('.')
     return keys[keys.length - 1]
 }
+
+$('#warpContainer').on("click", "#slime-lake", function(event){
+    //create ripples code
+ const container = event.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    const ripple = document.createElement('div');
+    const size = 40;
+    ripple.className = 'absolute border border-blue-200/60 rounded-full animate-ripple pointer-events-none z-50';
+    ripple.style.width = `${size}px`;
+    ripple.style.height = `${size}px`;
+    ripple.style.left = `${x - size / 2}px`;
+    ripple.style.top = `${y - size / 2}px`;
+    container.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 800);
+
+    //logic
+    
+
+})

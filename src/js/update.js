@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 import { checkArtifacts } from './item.js'
 import { artifactDictionary } from './item.js'
 import {renderShopInventoryItem} from './shop.js'
-import { warpLocationDictionary } from './save.js'
+import { warpLocationDictionary } from './warpPlaces.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
@@ -236,7 +236,6 @@ function renderWarpLocations(){
         insertHTML += 
         `
         <div class="border border-gray-300 rounded-lg p-4 mb-4">
-        <h2 class="font-semibold text-lg">${warpLocationDictionary[location].name}</h2>
         <p>${warpLocationDictionary[location].description}</p>
         <button data-location="${location}" class="warpToLocationButton base-button">Warp</button>
         </div>
