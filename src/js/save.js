@@ -65,8 +65,6 @@ export let dictionary = {
     'gearBits': {name: "Gear Bits", description:'morphing pieces of an unknown metaloid'} 
 }
 
-
-
 export function saveGame(){
     localStorage.setItem("gameData", JSON.stringify(game))
 }
