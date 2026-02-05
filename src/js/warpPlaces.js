@@ -80,7 +80,8 @@ function checkCatch() {
     const isSuccess = ($ind.left >= $target.left && $ind.right <= $target.right);
 
     if (isSuccess) {
-        $('#fish-status').text("you caught a ").addClass('text-green-400');
+        const data = rollFishLootTable();
+        $('#fish-status').text(`you caught a ${data.size} inch ${data.trait || "normal"} ${data.type}`).addClass('text-green-400');
     } else {
         $('#fish-status').text("it got away...").addClass('text-red-400');
     }
@@ -92,12 +93,53 @@ function checkCatch() {
     }, 1500);
 }
 
-const fishTable = {
+export const fishTraitsList = ['slippery', 'slimy','smelly','shiny','scaly','glowing','spiky','fuzzy']
+
+export const fishDictionary = {
     'miniFish': {
-        name: 'mini fish'
+        name: 'mini fish',
+        description: 'a tiny fish. if it grows up, it can achieve great things',
+        sizeRange: [1,3],
+        rarity: 'common',
+    },
+    'longishFish': {
+        name: 'longish fish',
+        description: 'fish that is sorta long',
+        sizeRange: [2,5],
+        rarity: 'common'
+    },
+    'bluewideFish': {
+        name: 'blue wide fish',
+        description: "somehow they're all wide AND blue. How is that possible?",
+        sizeRange: [2,5],
+        rarity: 'rare'
     }
 }
 
 function rollFishLootTable(){
+    const rarity = {'common': 80, 'rare': 20,}
+    const fishKeys = Object.keys(fishDictionary)
+    let pool=[]
+    fishKeys.forEach(key=>{
+        const fish = fishDictionary[key]
+        for(let i=0; i<rarity[fish.rarity]; i++){
+            pool.push(key)
+        }
+    })
+    const roll = Math.floor(Math.random()*pool.length)
+    const caughtFish = pool[roll]
+    const fishData = fishDictionary[caughtFish]
+    const [min, max] = fishData.sizeRange
+    const size = (Math.random()*(max-min)+min).toFixed(1)
 
+  const traitRoll = Math.random();
+    let count = 0;
+    if (traitRoll > 0.65) count = 2;    
+    else if (traitRoll > 0.30) count = 1;
+    const trait = count === 0 
+        ? null 
+        : [...fishTraitsList].sort(() => Math.random() - 0.5).slice(0, count);
+
+    console.log(`you caught a ${size} inch ${trait} ${caughtFish}`)
+    return {type: caughtFish, size, trait}
 }
