@@ -48,7 +48,17 @@ export let game = {
     ],
     unlockedWarpLocations:[
 
-    ]
+    ],
+    fishBox: {
+
+    },
+    equipment: {
+        'basicRod': {owned: 1, name: 'Basic Rod'},
+        equippedRod: 'basicRod'
+    },
+    ownedRods: {
+        'basicRod': 1
+    }
 }
 
 let emptyGameFile = JSON.parse(JSON.stringify(game))
