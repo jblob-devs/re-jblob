@@ -30,6 +30,7 @@ export const warpLocationDictionary = {
         <button id="fish-box-btn" class="base-button">Fish Box</button>
         <button id="rod-shop-btn" class="base-button">Rod Shop</button>
     </div>
+    <p id="seaScalesCounter"><i></i></p>
 
     <div id="fishBoxModal" class="hidden fixed inset-0 bg-black/20 z-50 pointer-events-none">
         <div id="fishBoxWindow" class="absolute bg-amber-50 shadow-lg rounded-2xl p-6 max-w-4xl max-h-screen overflow-y-auto cursor-move pointer-events-auto" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
@@ -60,6 +61,7 @@ let isFishing = false;
 let isWaitingForBite = false;
 let biteTimeout = null;
 let catchTimeout = null;
+
 
 $('#warpContainer').on("click", "#water-area", function(e) {
     if (isFishing) return;
@@ -191,41 +193,38 @@ export const fishDictionary = {
 export const fishingRodDictionary = {
     'basicRod': {
         name: 'Basic Rod',
-        description: 'A simple fishing rod. Catches common fish.',
-        cost: 50,
+        description: 'A simple fishing rod.',
+        cost: 100,
         costType: 'currencyItems.roundCoins',
         rarityBoost: 0,
         traitChanceBoost: 0,
         sizeBoost: 0,
-        icon: '🎣'
     },
-    'reinforcedRod': {
-        name: 'Reinforced Rod',
-        description: 'A stronger rod. Better at catching larger fish.',
-        cost: 150,
+    'sturdyRod': {
+        name: 'Sturdy Rod',
+        description: 'A more serviceable rod for the fisher',
+        cost: 500,
         costType: 'currencyItems.roundCoins',
         rarityBoost: 0,
         traitChanceBoost: 0,
         sizeBoost: 0.2,
-        icon: '🔨'
     },
-    'shinyRod': {
-        name: 'Shiny Rod',
-        description: 'A beautiful rod with special properties. Attracts rare fish and traits.',
-        cost: 300,
+    'shimmeringRod': {
+        name: 'Shimmering Rod',
+        description: 'A rod that attracts fish with a great variety of features.',
+        cost: 3000,
         costType: 'currencyItems.roundCoins',
-        rarityBoost: 15,
-        traitChanceBoost: 0.15,
+        rarityBoost: 5,
+        traitChanceBoost: 0.35,
         sizeBoost: 0,
-        icon: '✨'
     },
     'eliteRod': {
         name: 'Elite Rod',
-        description: 'The finest fishing rod. Catches the rarest fish with enhanced traits.',
-        cost: 500,
+        description: 'Rare fish look for this rod.',
+        cost: 5000,
         costType: 'currencyItems.roundCoins',
         rarityBoost: 25,
-        traitChanceBoost: 0.25,
+        traitChanceBoost: 0.05,
         sizeBoost: 0.15,
         icon: '⭐'
     }

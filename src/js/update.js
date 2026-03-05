@@ -35,6 +35,10 @@ const displayGameTick = function(){
         $("#warpNav").html(newWarpContent);
     }
 
+    if(("#seaScalesCounter").length){
+        $("#seaScalesCounter").html(`Sea Scales: ${game.currencyItems.seaScales}`)
+    }
+
 
     const newArtifactHtml = renderArtifacts()
     $('#artifactContainer').html(newArtifactHtml)

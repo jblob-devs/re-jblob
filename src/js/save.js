@@ -40,6 +40,7 @@ export let game = {
         bloblets: 0,
         bloodStones: 0,
         gearBits: 0,
+        seaScales:0,
     },
     artifacts:[
     ],
@@ -72,7 +73,8 @@ export let dictionary = {
     'artifactShards': {name: "Artifact Shards", description:'broken pieces of mysterious artifacts. perhaps they can be reforged?'},
     'bloblets': {name: "Bloblets", description:'a strange unnerving light emanates from these'},
     'bloodStones': {name: "Blood Stones", description:"it's blood. maybe"},
-    'gearBits': {name: "Gear Bits", description:'morphing pieces of an unknown metaloid'} 
+    'gearBits': {name: "Gear Bits", description:'morphing pieces of an unknown metaloid'},
+    'seaScales':{name:"Sea Scales", description:'pieces of the deep sea brought to the surface'}
 }
 
 export function saveGame(){
