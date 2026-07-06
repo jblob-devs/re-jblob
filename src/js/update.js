@@ -160,10 +160,13 @@ function checkLevel(){
         game.exp = game.exp - game.expNeededToLevel
         game.expNeededToLevel = Math.round(game.expNeededToLevel * 1.25)
         Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
             title: `Level up!`,
-            text: `Leveled up to Lv. ${game.level}`,
-            focusConfirm: false,
-            allowEnterKey: false,
+            text: `Leveled up to Lv. ${game.level}`
         })
     }
     if(game.level >= 2){

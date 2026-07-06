@@ -5,7 +5,37 @@
 }
 
 .base-modal{
-    @apply absolute bg-amber-50 shadow-lg rounded-2xl p-4 hidden
+    @apply fixed bg-amber-50 shadow-lg rounded-2xl p-4 hidden;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: min(95vw, 720px);
+    max-height: calc(100vh - 3rem);
+    overflow-y: auto;
+    z-index: 11000;
+}
+
+#levelDivOutside,
+#levelDivInside,
+#levelDivSpan,
+.collect-bar {
+    z-index: 0 !important;
+}
+
+.ui-draggable-dragging {
+    z-index: 11001 !important;
+}
+
+#fishBoxModal {
+    z-index: 12000 !important;
+}
+
+#fishBoxWindow {
+    z-index: 12001 !important;
+}
+
+.base-modal.dragging {
+    cursor: move;
 }
 
 
@@ -16,7 +46,7 @@
         @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none 
                opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-80
                bg-gray-800 text-gray-100 text-sm rounded-lg py-3 px-4 shadow-xl 
-               ring-1 ring-gray-600 relative;
+               ring-1 ring-gray-600;
 }
 .tooltip-tail {
         @apply absolute top-full left-1/2 -translate-x-1/2 -mt-1.5;

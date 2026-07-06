@@ -127,10 +127,14 @@ $('#gameBody').off("click", ".openOpenableButton").on("click", ".openOpenableBut
         curPath[finalKey] -= Number(currencyAmount)
         rollChestLoot(chestType)
         console.log('opened chest')
-    }else{
+    } else {
         Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
             text: `You don't have the materials to open this chest `,
-           
         })
     }
     
@@ -155,6 +159,11 @@ function rollChestLoot(chestType){
 
             curPath[materialKey] += rewardAMT
             Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
                 text: `Got ${rewardAMT} ${dictionary[materialKey].name}!`,
                 footer: `${openablesList[chestType].description}`
             })
@@ -180,10 +189,25 @@ class shopItem{
     if(costPath){
             if(costPath >= this.costNumber ){
             game.currencyItems[this.costType] -= this.costNumber
-            Swal.fire({text:`bought ${this.name}!`, footer: `${this.description}`})
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                text: `bought ${this.name}!`,
+                footer: `${this.description}`
+            })
             this.buyFunction()
         } else{console.log('cantafford')
-        Swal.fire({text:`cannot afford!`})
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            text:`cannot afford!`
+        })
         }
     }else{
        console.log('internal error, costType not defined')

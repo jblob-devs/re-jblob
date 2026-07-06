@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { makeDraggable } from './draggable.js'
 import { game } from './save.js'
 import shopContent from '../html/shop.html?raw'
 import inventoryContent from '../html/inventory.html?raw'
@@ -19,9 +20,20 @@ $("#circleClickButton").on("click", function(){
 })
 
 $("#blobDivTitle").on("click", function(){
-$("#blobContainer").slideToggle("fast")
+    $("#blobContainer").slideToggle("fast")
 })
 
+function enableDraggableModals() {
+    document.querySelectorAll('.base-modal').forEach(modal => {
+        makeDraggable(modal, {
+            containment: 'window',
+            zIndex: 11000,
+            cancel: 'button, a, input, textarea, select, label, .ui-resizable-handle'
+        })
+    })
+}
+
+enableDraggableModals()
 
 $("#shopButton").on("click", function(){
 $("#shopContainer").html(shopContent)
@@ -75,23 +87,37 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
     if(curPath[finalKey] >= realBlob.cost){
         if(game.curCapacity+1 > game.capacity){
             Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
                 icon: 'error',
-                text:'Not enough capacity!',
+                text: 'Not enough capacity!',
                 footer: 'increase your capacity to hold more blobs!'
-                
             })
-        }else{
-        curPath[finalKey] -= realBlob.cost
-        realBlob.owned++
-        Swal.fire({
-            text:'succesfully bought ' + realBlob.name + "!",
-        })
+        } else {
+            curPath[finalKey] -= realBlob.cost
+            realBlob.owned++
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                text: 'succesfully bought ' + realBlob.name + '!'
+            })
         }
         
-    }else{
+    } else {
         Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
             icon: 'error',
-            text:'Not enough ' + dictionary[finalKey].name + "!",
+            text: 'Not enough ' + dictionary[finalKey].name + '!'
         })
     }
 })

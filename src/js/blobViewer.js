@@ -1,9 +1,6 @@
 import {game} from "./save.js"
-
 import $ from 'jquery'
-import 'jquery-ui/ui/widgets/draggable'
-
-
+import { makeDraggable } from './draggable.js'
 
 const container = $("#blobViewerContainer")
 let screenBlobs = []
@@ -53,28 +50,23 @@ function updateBlobViewer(){
             newBlob.element = blobViewerDiv
             container.append(blobViewerDiv)
 
-            jQuery(".blobView").draggable({
-                containment: "#blobViewerContainer",
-                start: function (event, ui) {
-                    const draggedBlob = $(this).data('blobObject');
-                    const $element = $(this);
-                    const curPos = $element.position()
-                    draggedBlob.x  = curPos.left;
-                    draggedBlob.y = curPos.top;
-                    console.log(`${draggedBlob.x}, ${draggedBlob.y}`)
-                   if(draggedBlob){ draggedBlob.isBeingDragged = true;}
-                   
-                 
-                },
-                stop: function(event, ui){
-                     const draggedBlob = $(this).data('blobObject');
-                   if(draggedBlob){ 
-                    draggedBlob.x = ui.position.left;
-                    draggedBlob.y = ui.position.top;
-                    draggedBlob.isBeingDragged = false;
-                    console.log(`${draggedBlob.x}, ${draggedBlob.y}`)
-                }
-                    
+            makeDraggable(blobViewerDiv, {
+                containment: '#blobViewerContainer',
+                zIndex: 10000,
+                cancel: 'button, a, input, textarea, select, label'
+            })
+            const $element = $(blobViewerDiv)
+            $element.data('blobObject', newBlob)
+            blobViewerDiv.addEventListener('mousedown', () => {
+                newBlob.isBeingDragged = true
+            })
+            window.addEventListener('mouseup', () => {
+                if (newBlob.isBeingDragged) {
+                    const rect = blobViewerDiv.getBoundingClientRect()
+                    const parentRect = document.getElementById('blobViewerContainer').getBoundingClientRect()
+                    newBlob.x = rect.left - parentRect.left
+                    newBlob.y = rect.top - parentRect.top
+                    newBlob.isBeingDragged = false
                 }
             })
             
