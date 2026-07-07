@@ -1,5 +1,6 @@
 import $ from 'jquery'
 import { defaultsDeep } from 'lodash';
+import {initBlobStates} from './blobData.js'
 export let shouldSave = true;
 export let game = {
     level: 1,
@@ -11,22 +12,8 @@ export let game = {
         pointyCoinsPerClick: 1,
         flatCoinsPerClick: 1,
     },
-    blobs:{
-        basicBlob:{
-            name: "Basic Blob",
-            image: 'basicBlob',
-            cost: 30,
-            costType: "currencyItems.roundCoins",
-            owned:1,
-            level: 1,
-            generateMaterial: "currencyItems.roundCoins",
-            generateAmount: 1,
-            generateInterval: 1000,
-            maxStorage: 10,
-            curStorage: 0,
-        }
-    },
-    buyableBlobs: ['blobs.basicBlob'],
+    blobs: initBlobStates(),
+    buyableBlobs: ['basicBlob'],
     capacity: 3,
     curCapacity: 1,
     shopRefreshTimer: 5000, //ms

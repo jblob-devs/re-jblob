@@ -8,6 +8,7 @@ import { checkArtifacts } from './item.js'
 import { artifactDictionary } from './item.js'
 import {renderShopInventoryItem} from './shop.js'
 import { warpLocationDictionary } from './warpPlaces.js'
+import { blobDictionary } from './blobData.js'
 $("#buyBlobsContainer").html(renderBuyableBlobs())
 $("#blobListContainer").html(renderBlobList())
  $("#blobListHeader").html(renderBlobListHeader())
@@ -15,6 +16,7 @@ $("#blobListContainer").html(renderBlobList())
  renderShopInventoryItem()
 
  let curArtifactHtml = null
+ game.unlockedWarpLocations = []
 const displayGameTick = function(){
     if(shouldSave){
     saveGame()
@@ -65,12 +67,7 @@ Object.keys(game.blobs).map((blobKey)=>{
 
 function renderBuyableBlobs(){
 const content = game.buyableBlobs.map((blob)=>{
-    let realBlob = game
-    let attributes = blob.split('.')
-    attributes.forEach(part => {
-        realBlob = realBlob[part]
-    })
-
+    let realBlob = blobDictionary[blob]
     const keys = realBlob.costType.split('.')
     let finalKey = keys[keys.length - 1]
     return `
@@ -94,8 +91,8 @@ function renderBlobList(){
             <div id="blob-${blobKey}" class="border border-gray-300 rounded-lg p-4 mb-4">
 
             <div class="flex flex-row items-center justify-between">
-            <p class="font-semibold text-lg">${realBlob.name}</p>
-            <img src="assets/images/blobs/${realBlob.image}.png" class="w-16 h-auto"/>
+            <p class="font-semibold text-lg">${blobDictionary[blobKey].name}</p>
+            <img src="assets/images/blobs/${blobDictionary[blobKey].image}.png" class="w-16 h-auto"/>
             </div>
             <br>
             <p>( ${realBlob.owned} )</p>
@@ -135,13 +132,14 @@ function renderBlobListHeader(){
 function renderIdleBlobProgressUI(){
 Object.keys(game.blobs).forEach((blobKey)=>{
         const realBlob = game.blobs[blobKey]
+        const blobInfo = blobDictionary[blobKey]
         if(realBlob.owned >= 1){
-            const totalMax = realBlob.maxStorage * realBlob.owned
+            const totalMax = blobInfo.maxStorage * realBlob.owned
             const percentage = (realBlob.curStorage / totalMax) * 100
             const $progressBar = $(`#progress-bar-${blobKey}`)
             const progressText = $(`#progress-text-${blobKey}`)
             $progressBar.css("width", percentage + "%");
-            progressText.text(`collect ${realBlob.curStorage} / ${realBlob.maxStorage * realBlob.owned}`)
+            progressText.text(`collect ${realBlob.curStorage} / ${blobInfo.maxStorage * realBlob.owned}`)
         }
     })
 }
@@ -171,6 +169,7 @@ function checkLevel(){
     }
     if(game.level >= 2){
         unlockWarpLocation('SlimedLake')
+        unlockWarpLocation('StainedAltar')
     }
 }
 
@@ -182,26 +181,27 @@ function unlockWarpLocation(locationName){
 
 function generateIdleRewards(blobKey){
 const blob = game.blobs[blobKey]
-
+const blobInfo = blobDictionary[blobKey]
 if(blob.owned <= 0) return;
 
-const totalMax = blob.maxStorage * blob.owned
+const totalMax = blobInfo.maxStorage * blob.owned
 if(blob.curStorage >= totalMax) return;
 
-blob.curStorage += blob.owned * blob.generateAmount
+blob.curStorage += blob.owned * blobInfo.generateAmount
 if(blob.curStorage > totalMax) blob.curStorage = totalMax;
 }
 
 function collectIdleRewards(blobKey){
+    const blobInfo = blobDictionary[blobKey]
     const blob = game.blobs[blobKey]
-    const fullPath = blob.generateMaterial
+    const fullPath = blobInfo.generateMaterial
     const keys = fullPath.split('.')
     let curPath = game
     for(let i = 0; i < keys.length - 1; i++){
         const key = keys[i]
         curPath = curPath[key]
     }
-    if(blob.curStorage >= blob.maxStorage * blob.owned){
+    if(blob.curStorage >= blobInfo.maxStorage * blob.owned){
         checkArtifacts('on_blobCollect_maxCap')
     }
     let materialKey = keys[keys.length - 1]

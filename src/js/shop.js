@@ -29,7 +29,7 @@ export let openablesList = {
             ]
     },
     'bloodChest': {
-        name: 'Bronze Chest',
+        name: 'Blood Chest',
         description: 'the chest wants nothing less than life',
          costNum: 10,
             costType: 'currencyItems.bloodStones',

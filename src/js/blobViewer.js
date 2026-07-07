@@ -1,6 +1,7 @@
 import {game} from "./save.js"
 import $ from 'jquery'
 import { makeDraggable } from './draggable.js'
+import {blobDictionary} from './blobData.js'
 
 const container = $("#blobViewerContainer")
 let screenBlobs = []
@@ -45,7 +46,7 @@ function updateBlobViewer(){
 
             const blobViewerDiv = document.createElement("div")
             blobViewerDiv.className = 'blobView w-fit h-fit'
-            blobViewerDiv.innerHTML = blobIMG(game.blobs[blob].image)
+            blobViewerDiv.innerHTML = blobIMG(blobDictionary[blob].image)
             $(blobViewerDiv).data('blobObject', newBlob)
             newBlob.element = blobViewerDiv
             container.append(blobViewerDiv)
