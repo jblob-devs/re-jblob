@@ -9,6 +9,7 @@ import Swal from 'sweetalert2'
 import { dictionary } from './save.js'
 import {checkArtifacts} from './item.js'
 import {warpLocationDictionary} from './warpPlaces.js'
+import { blobDictionary } from './blobData.js'
 
 $("#blobViewingContainer").html(blobViewerContent)
 
@@ -67,13 +68,7 @@ $('#gameBody').on("click", ".closeModalButton", function(){
 $('#gameBody').on("click", ".buyBlobButton", function(){
     console.log('buying blob')
     const blobPath = $(this).attr("data")
-    let realBlob = game
-    let attributes = blobPath.split('.')
-
-   
-    attributes.forEach(part => {
-        realBlob = realBlob[part]
-    })
+    let realBlob = blobDictionary[blobPath]
     let costCurrencyName = realBlob.costType
     const keys = costCurrencyName.split('.')
     let finalKey = keys[keys.length - 1]
@@ -98,7 +93,9 @@ $('#gameBody').on("click", ".buyBlobButton", function(){
             })
         } else {
             curPath[finalKey] -= realBlob.cost
-            realBlob.owned++
+            let blobStats = game.blobs
+
+            blobStats[blobPath].owned++
             Swal.fire({
                 toast: true,
                 position: 'top-end',

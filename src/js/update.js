@@ -191,8 +191,10 @@ blob.curStorage += blob.owned * blobInfo.generateAmount
 if(blob.curStorage > totalMax) blob.curStorage = totalMax;
 }
 
-function collectIdleRewards(blobKey){
+export function collectIdleRewards(blobKey){
+
     const blobInfo = blobDictionary[blobKey]
+    console.log(blobInfo)
     const blob = game.blobs[blobKey]
     const fullPath = blobInfo.generateMaterial
     const keys = fullPath.split('.')
@@ -213,6 +215,7 @@ function collectIdleRewards(blobKey){
 
 $("#blobListContainer").on("click", ".collect-bar", function(){
     const blobKey = $(this).data("blob-key");
+    console.log(blobKey)
     collectIdleRewards(blobKey);
     renderIdleBlobProgressUI();
 });

@@ -1,98 +1,125 @@
 @import "tailwindcss";
 
-.base-button{
-    @apply border-amber-200 py-5 px-4 border-2 rounded-2xl hover:rounded-3xl hover:bg-amber-100 transition-all duration-300 ease-in-out
+.base-button {
+  @apply border-amber-200 py-5 px-4 border-2 rounded-2xl hover:rounded-3xl hover:bg-amber-100 transition-all duration-300 ease-in-out;
 }
 
-.base-modal{
-    @apply fixed bg-amber-50 shadow-lg rounded-2xl p-4 hidden;
-    top: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: min(95vw, 720px);
-    max-height: calc(100vh - 3rem);
-    overflow-y: auto;
-    z-index: 11000;
+.base-modal {
+  @apply fixed bg-amber-50 shadow-lg rounded-2xl p-4 hidden;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(95vw, 720px);
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  z-index: 11000;
 }
 
 #levelDivOutside,
 #levelDivInside,
 #levelDivSpan,
 .collect-bar {
-    z-index: 0 !important;
+  z-index: 0 !important;
 }
 
 .ui-draggable-dragging {
-    z-index: 11001 !important;
+  z-index: 11001 !important;
 }
 
 #fishBoxModal {
-    z-index: 12000 !important;
+  z-index: 12000 !important;
 }
 
 #fishBoxWindow {
-    z-index: 12001 !important;
+  z-index: 12001 !important;
 }
 
 .base-modal.dragging {
-    cursor: move;
+  cursor: move;
 }
-
 
 .tooltip-wrapper {
-    @apply relative inline-block mt-2 cursor-pointer;
+  @apply relative inline-block mt-2 cursor-pointer;
 }
 .tooltip-content {
-        @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none 
+  @apply absolute bottom-full left-1/2 -translate-x-1/2 mb-2 pointer-events-none 
                opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 w-80
                bg-gray-800 text-gray-100 text-sm rounded-lg py-3 px-4 shadow-xl 
                ring-1 ring-gray-600;
 }
 .tooltip-tail {
-        @apply absolute top-full left-1/2 -translate-x-1/2 -mt-1.5;
+  @apply absolute top-full left-1/2 -translate-x-1/2 -mt-1.5;
 }
 
-
 .tooltip-arrow {
-        @apply w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-800;
+  @apply w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-800;
 }
 
 @keyframes wobble {
-    0%, 100% { 
-      border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%; 
-      transform: scale(1); 
-    }
-    33% { 
-      border-radius: 70% 30% 46% 54% / 30% 39% 61% 70%; 
-      transform: scale(1.02) rotate(1deg); 
-    }
-    66% { 
-      border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; 
-      transform: scale(0.98) rotate(-1deg); 
-    }
+  0%,
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: scale(1);
   }
+  33% {
+    border-radius: 70% 30% 46% 54% / 30% 39% 61% 70%;
+    transform: scale(1.02) rotate(1deg);
+  }
+  66% {
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    transform: scale(0.98) rotate(-1deg);
+  }
+}
 
-  .animate-wobble {
-    animation: wobble 8s infinite ease-in-out;
-  }
+.animate-wobble {
+  animation: wobble 8s infinite ease-in-out;
+}
 
-  .animate-wobble-slow {
-    animation: wobble 12s infinite ease-in-out reverse;
+.animate-wobble-slow {
+  animation: wobble 12s infinite ease-in-out reverse;
+}
+@keyframes ripple-out {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
   }
-  @keyframes ripple-out {
-    0% { transform: scale(0); opacity: 0.5; }
-    100% { transform: scale(4); opacity: 0; }
+  100% {
+    transform: scale(4);
+    opacity: 0;
   }
+}
 
-  .animate-ripple {
-    animation: ripple-out 1s ease-out forwards;
+.animate-ripple {
+  animation: ripple-out 1s ease-out forwards;
+}
+@keyframes move {
+  from {
+    left: 0%;
   }
-  @keyframes move {
-        from { left: 0%; }
-        to { left: calc(100% - 6px); }
-    }
-    .animate-bob { animation: bounce 1s infinite; }
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
+  to {
+    left: calc(100% - 6px);
+  }
+}
+.animate-bob {
+  animation: bounce 1s infinite;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.blobViewerImage:hover {
+  transform: scale(1.2);
+  transition: ease-in 0.6s
+}.blobViewerImage{
+  transform: scale(1.0);
+  transition: ease-out 0.6s
+}
+.blobViewerImage:active{
+  transform: scale(0.8);
+  transition: ease 0.2s;
+}

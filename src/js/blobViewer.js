@@ -2,6 +2,7 @@ import {game} from "./save.js"
 import $ from 'jquery'
 import { makeDraggable } from './draggable.js'
 import {blobDictionary} from './blobData.js'
+import {collectIdleRewards} from './update.js'
 
 const container = $("#blobViewerContainer")
 let screenBlobs = []
@@ -11,7 +12,7 @@ const BLOBBY_SCALE_AMPLITUDE = 0.05;
 const BLOBBY_ROTATION_AMPLITUDE = 1.5;
 const blobIMG = (id) =>
     `
-<img src="assets/images/blobs/${id}.png" id="blob-${id}" class="transform scale-50"/>
+<img src="assets/images/blobs/${id}.png" id="blob-${id}" class="blobViewerImage transform scale-50"/>
             
 `
 
@@ -23,7 +24,7 @@ function createNewBlobView(id){
         id: id,
         x: Math.random() * (containerW) ,
         y: Math.random() * (containterH),
-        vx: (Math.random() - 0.5) * 1,
+        vx: (Math.random() - 0.8) * 1,
         vyOffset: Math.random() * 1000,
         isBeingDragged: false,
         element:null,
@@ -51,24 +52,11 @@ function updateBlobViewer(){
             newBlob.element = blobViewerDiv
             container.append(blobViewerDiv)
 
-            makeDraggable(blobViewerDiv, {
-                containment: '#blobViewerContainer',
-                zIndex: 10000,
-                cancel: 'button, a, input, textarea, select, label'
-            })
             const $element = $(blobViewerDiv)
             $element.data('blobObject', newBlob)
-            blobViewerDiv.addEventListener('mousedown', () => {
-                newBlob.isBeingDragged = true
-            })
-            window.addEventListener('mouseup', () => {
-                if (newBlob.isBeingDragged) {
-                    const rect = blobViewerDiv.getBoundingClientRect()
-                    const parentRect = document.getElementById('blobViewerContainer').getBoundingClientRect()
-                    newBlob.x = rect.left - parentRect.left
-                    newBlob.y = rect.top - parentRect.top
-                    newBlob.isBeingDragged = false
-                }
+           
+            blobViewerDiv.addEventListener('click', () => {
+                collectIdleRewards(blob)
             })
             
             
@@ -110,6 +98,8 @@ function animateBlobs(){
              scaleX(${scaleX * flipDirection}) 
              scaleY(${scaleY}) 
              rotate(${rotationZ}deg)`;
+
+        
             });
 
             requestAnimationFrame(animateBlobs);
