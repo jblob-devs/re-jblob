@@ -205,12 +205,19 @@ export function collectIdleRewards(blobKey){
     }
     if(blob.curStorage >= blobInfo.maxStorage * blob.owned){
         checkArtifacts('on_blobCollect_maxCap')
+        game.exp += blob.owned
     }
     let materialKey = keys[keys.length - 1]
-    curPath[materialKey] += Number(blob.curStorage)
+    const collectedAmount = Number(blob.curStorage)
+    curPath[materialKey] += collectedAmount
     blob.curStorage = 0
 
     checkArtifacts('on_blobCollect')
+    return {
+        amount: collectedAmount,
+        materialKey,
+        materialName: dictionary[materialKey]?.name || materialKey,
+    }
 }
 
 $("#blobListContainer").on("click", ".collect-bar", function(){

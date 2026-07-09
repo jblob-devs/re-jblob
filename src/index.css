@@ -123,3 +123,36 @@
   transform: scale(0.8);
   transition: ease 0.2s;
 }
+
+#blobViewerContainer {
+  position: relative;
+  overflow: visible;
+}
+
+.blobRewardPopup {
+  position: absolute;
+  transform: translate(20%, -100%);
+  pointer-events: none;
+  z-index: 50;
+  color: #16a34a;
+  font-weight: 700;
+  text-shadow:
+    0 1px 0 #ffffff,
+    0 0 6px rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
+  animation: blob-reward-float 900ms ease-out forwards;
+}
+
+@keyframes blob-reward-float {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -80%) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -170%) scale(0.9);
+  }
+}

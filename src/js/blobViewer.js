@@ -13,8 +13,25 @@ const BLOBBY_ROTATION_AMPLITUDE = 1.5;
 const blobIMG = (id) =>
     `
 <img src="assets/images/blobs/${id}.png" id="blob-${id}" class="blobViewerImage transform scale-50"/>
-            
+
 `
+
+function showRewardPopup(event, reward){
+    if(!reward || reward.amount <= 0) return;
+
+    const containerElement = container[0]
+    if(!containerElement) return;
+
+    const rect = containerElement.getBoundingClientRect()
+    const rewardPopup = document.createElement("div")
+    rewardPopup.className = "blobRewardPopup"
+    rewardPopup.textContent = `+ ${reward.amount} ${reward.materialName}`
+    rewardPopup.style.left = `${event.clientX - rect.left}px`
+    rewardPopup.style.top = `${event.clientY - rect.top}px`
+
+    containerElement.appendChild(rewardPopup)
+    rewardPopup.addEventListener("animationend", () => rewardPopup.remove(), {once: true})
+}
 
 function createNewBlobView(id){
     const containerW = container.width()
@@ -55,8 +72,9 @@ function updateBlobViewer(){
             const $element = $(blobViewerDiv)
             $element.data('blobObject', newBlob)
            
-            blobViewerDiv.addEventListener('click', () => {
-                collectIdleRewards(blob)
+            blobViewerDiv.addEventListener('click', (event) => {
+                const reward = collectIdleRewards(blob)
+                showRewardPopup(event, reward)
             })
             
             
